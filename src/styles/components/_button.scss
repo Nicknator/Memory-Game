@@ -1,0 +1,63 @@
+@use '../abstract/variables';
+
+.btn-primary {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: $color-playBtn;
+    color: $color-play_btn_text;
+    width: 250px;
+    height: 98px;
+    padding: 16px 40px;
+
+    margin-top: 60px;
+
+    font-family: 'Red Rose', sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 100%;
+
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+
+    .btn-play-icon {
+        width: 44px;
+        height: 32px;
+        opacity: 1;
+    }
+
+    .btn-arrow-icon {
+            width: 33px;
+    }
+
+    transition: transform 0.2s ease;
+
+    .btn-play-icon {
+        width: 44px;
+        height: 32px;
+        opacity: 1;
+        transition: transform 0.3s ease; 
+    }
+
+    .btn-arrow-icon {
+        width: 33px;
+        transition: transform 0.3s ease; 
+    }
+
+    &:hover {
+        transform: scale(1.05); 
+
+        .btn-play-icon {
+            transform: rotate(-15deg); 
+        }
+        .btn-arrow-icon {
+            transform: translateX(1px); 
+            filter: drop-shadow(0px 0px 0px);
+        }
+    }
+}
+
+

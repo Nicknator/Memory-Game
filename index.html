@@ -4,15 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://googleapis.com" rel="stylesheet">
+
     <title>Memory Game</title>
 </head>
 
 <body>
-    <div id="app">
-        <h1>Developer Akademie Memory</h1>
-        <div id="game-board"></div>
-    </div>
+    <section id="homescreen" class="screen-visible">
 
+        <div class="background-icon">
+
+        </div>
+        <img src="/src/assets/stadia_controller2.png" alt="Controller2 Icon" class="btn-play-icon2">
+
+
+        <div class="hero-content">
+            <div class="hero-text">
+                <p class="subtitle">It's play time.</p>
+                <h1 class="title">Ready to play?</h1>
+
+            </div>
+        </div>
+
+        <button id="btn-to-settings" class="btn-primary">
+            <img src="/src/assets/stadia_controller.png" alt="Controller Icon" class="btn-play-icon">
+            <span class="icon-controller"></span> Play
+            <img src="/src/assets/arrow1.png" alt="Arrow Icon" class="btn-arrow-icon">
+        </button>
+
+        
+    </section>
     <script type="module" src="/src/main.ts"></script>
 
 </body>

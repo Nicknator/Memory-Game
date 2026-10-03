@@ -1,8 +1,13 @@
-// @import 'base/reset';     
-// @import 'layout/board';   
+@import 'abstract/variables';
+@import 'base/base.scss';
+@import 'layout/home.scss';
+@import 'components/button.scss';
+
 
 body {
-    background-color: #272784;
-    color: white;
+    background-color: $color-home;
+    margin: 0;
+
 }
+
 
