@@ -10,19 +10,17 @@
 </head>
 
 <body>
+
     <section id="homescreen" class="screen-visible">
 
         <div class="background-icon">
-
         </div>
         <img src="/src/assets/stadia_controller2.png" alt="Controller2 Icon" class="btn-play-icon2">
-
 
         <div class="hero-content">
             <div class="hero-text">
                 <p class="subtitle">It's play time.</p>
                 <h1 class="title">Ready to play?</h1>
-
             </div>
         </div>
 
@@ -31,9 +29,99 @@
             <span class="icon-controller"></span> Play
             <img src="/src/assets/arrow1.png" alt="Arrow Icon" class="btn-arrow-icon">
         </button>
-
-        
     </section>
+
+
+    <section id="settings-screen" class="screen-hidden">
+
+        <div class="settings-container">
+
+            <div class="settings-header">
+                <h2 class="settings-title">Settings</h2>
+                <div class="header-line"></div>
+            </div>
+
+            <div class="settings-content">
+
+                <form id="settings-form" class="settings-options">
+
+                    <div class="game_Choose_Bord">
+
+                        <div class="setting-group">
+                            <div class="group-header">
+                                <img src="/src/assets/setting-page/palette.png" alt="Palette Icon">
+                                <h3><span> </span>Game themes</h3>
+                            </div>
+                            <div class="radio-options">
+                                <label><input type="radio" name="theme-choice" value="code" checked> Code vibes
+                                    theme</label>
+                                <label><input type="radio" name="theme-choice" value="gaming"> Gaming theme</label>
+                                <label><input type="radio" name="theme-choice" value="projects"> DA Projects
+                                    theme</label>
+                                <label><input type="radio" name="theme-choice" value="foods"> Foods theme</label>
+                            </div>
+                        </div>
+
+                        <div class="setting-group">
+                            <div class="group-header">
+                                <img src="/src/assets/setting-page/chess_pawn.png" alt="Chess Pawn Icon">
+                                <h3><span> </span> Choose player</h3>
+                            </div>
+                            <div class="radio-options">
+                                <label><input type="radio" name="player-choice" value="blue" checked> Blue</label>
+                                <label><input type="radio" name="player-choice" value="orange"> Orange</label>
+                            </div>
+                        </div>
+
+                        <div class="setting-group">
+                            <div class="group-header">
+                                <img src="/src/assets/setting-page/style.png" alt="Style Icon">
+                                <h3><span> </span> Board size
+                                </h3>
+                            </div>
+                            <div class="radio-options">
+                                <label><input type="radio" name="size-choice" value="16" checked> 16 cards</label>
+                                <label><input type="radio" name="size-choice" value="24"> 24 cards</label>
+                                <label><input type="radio" name="size-choice" value="36"> 36 cards</label>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </form>
+
+                <div>
+                    <img src="src/assets/setting-page/Theme Visual.png" alt="Theme Visual" class="visual_Theme_Set">
+                    
+                    <div class="selectionsBtnArea">
+                        <p>Game theme</p>
+                        <div>/</div>
+                        <p>Player</p>
+                        <div>/</div>
+                        <p>Board size</p>
+                        <button>start</button>
+
+
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        </div>
+
+    </section>
+
+
     <script type="module" src="/src/main.ts"></script>
 
 </body>

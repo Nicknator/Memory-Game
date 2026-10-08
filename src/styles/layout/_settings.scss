@@ -1,0 +1,85 @@
+@use '../abstract/variables';
+
+
+#settings-screen {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: $color-white;
+
+
+}
+
+
+.settings-title {
+    font-family: 'Red Rose', sans-serif;
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 54px;
+    line-height: 100%;
+    margin: 0;
+    color: $color-play_btn_text;
+}
+
+.settings-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 200px;
+
+
+    .visual_Theme_Set {
+        width: 460px;
+        height: 412px;
+    }
+
+
+
+    .setting-group {}
+
+    .radio-options {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 8px;
+        padding-left: 35px;
+
+    }
+
+
+
+    .group-header {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        gap: 10px;
+
+    }
+
+
+
+
+    .palette_icon {
+        width: 300px;
+        height: 30px;
+        margin-right: 10px;
+    }
+
+
+
+
+    .selectionsBtnArea {
+        width: 546px;
+        height: 81px;
+        background-color: $color-settingbtn;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+
+
+}

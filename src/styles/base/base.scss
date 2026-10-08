@@ -1,0 +1,21 @@
+#homescreen, #settings-screen {
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.screen-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.screen-hidden {
+    opacity: 0;
+    visibility: hidden;
+}
