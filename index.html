@@ -13,6 +13,8 @@
 
     <section id="homescreen" class="screen-visible">
 
+
+
         <div class="background-icon">
         </div>
         <img src="/src/assets/stadia_controller2.png" alt="Controller2 Icon" class="btn-play-icon2">
@@ -93,17 +95,14 @@
 
                 <div>
                     <img src="src/assets/setting-page/Theme Visual.png" alt="Theme Visual" class="visual_Theme_Set">
-                    
+
                     <div class="selectionsBtnArea">
                         <p>Game theme</p>
                         <div>/</div>
                         <p>Player</p>
                         <div>/</div>
                         <p>Board size</p>
-                        <button>start</button>
-
-
-
+                        <button id="btnStartGame">start</button>
 
                     </div>
 
@@ -120,6 +119,19 @@
         </div>
 
     </section>
+
+    <section id="game-screen" class="screen-hidden">
+        <h2>Game </h2>
+
+        <div id="game-bord" class="game-bord"></div>
+
+        <div id="value"></div>
+
+
+
+    </section>
+
+    
 
 
     <script type="module" src="/src/main.ts"></script>
