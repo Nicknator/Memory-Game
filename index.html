@@ -44,23 +44,21 @@
             </div>
 
             <div class="settings-content">
-
                 <form id="settings-form" class="settings-options">
-
                     <div class="game_Choose_Bord">
-
                         <div class="setting-group">
                             <div class="group-header">
                                 <img src="/src/assets/setting-page/palette.png" alt="Palette Icon">
                                 <h3><span> </span>Game themes</h3>
                             </div>
                             <div class="radio-options">
-                                <label><input type="radio" name="theme-choice" value="code" checked> Code vibes
+                                <label><input type="radio" name="theme-choice" value="Code vibes theme" checked> Code
+                                    vibes theme</label>
+                                <label><input type="radio" name="theme-choice" value="Gaming theme"> Gaming
                                     theme</label>
-                                <label><input type="radio" name="theme-choice" value="gaming"> Gaming theme</label>
-                                <label><input type="radio" name="theme-choice" value="projects"> DA Projects
+                                <label><input type="radio" name="theme-choice" value="DA Projects theme"> DA Projects
                                     theme</label>
-                                <label><input type="radio" name="theme-choice" value="foods"> Foods theme</label>
+                                <label><input type="radio" name="theme-choice" value="Foods theme"> Foods theme</label>
                             </div>
                         </div>
 
@@ -70,8 +68,8 @@
                                 <h3><span> </span> Choose player</h3>
                             </div>
                             <div class="radio-options">
-                                <label><input type="radio" name="player-choice" value="blue" checked> Blue</label>
-                                <label><input type="radio" name="player-choice" value="orange"> Orange</label>
+                                <label><input type="radio" name="player-choice" value="Blue" checked> Blue</label>
+                                <label><input type="radio" name="player-choice" value="Orange"> Orange</label>
                             </div>
                         </div>
 
@@ -94,28 +92,20 @@
                 </form>
 
                 <div>
-                    <img src="src/assets/setting-page/Theme Visual.png" alt="Theme Visual" class="visual_Theme_Set">
+                    <div id="theme-preview-container" class="visual_Theme_Set"></div>
+
 
                     <div class="selectionsBtnArea">
-                        <p>Game theme</p>
+                        <p><span id="theme-display"></span></p>
                         <div>/</div>
-                        <p>Player</p>
+                        <p><span id="player-color"></span> Player</p>
                         <div>/</div>
-                        <p>Board size</p>
+                        <p>Board-<span id="size-display"></span></p>
                         <button id="btnStartGame">start</button>
-
                     </div>
-
                 </div>
-
-
             </div>
-
-
         </div>
-
-
-
         </div>
 
     </section>
@@ -131,7 +121,7 @@
 
     </section>
 
-    
+
 
 
     <script type="module" src="/src/main.ts"></script>
