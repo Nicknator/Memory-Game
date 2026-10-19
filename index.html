@@ -111,11 +111,22 @@
     </section>
 
     <section id="game-screen" class="screen-hidden">
-        <h2>Game </h2>
+        <div class="game-header">
+            <div class="score-display">
+                <div class="score-box blue">Blau: <span id="score-blue-val">0</span></div>
+                <div class="score-box orange">Orange: <span id="score-orange-val">0</span></div>
+            </div>
+
+            <div class="current-player-status">
+                Aktueller Spieler: <span id="current-player-display" class="indicator-blue">0</span>
+            </div>
+
+            <button id="btn-exit-game" class="exit-btn">Exit Game</button>
+
+        </div>
 
         <div id="game-bord" class="game-bord"></div>
-
-        <div id="value"></div>
+        <!-- <div id="value"></div> -->
 
 
 

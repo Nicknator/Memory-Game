@@ -15,6 +15,13 @@ interface Memory {
     memory_image: string;
 }
 
+let currentSettings: GameSettings;
+let activePlayer: PlayerColor;
+
+const scores = {
+    blue: 0,
+    orange: 0
+};
 
 init();
 
@@ -78,118 +85,121 @@ function init() {
 
     settingsForm?.addEventListener('change', updateLiveDisplays);
 
+    startGameBtn();
 
-    btnStartGame?.addEventListener('click', () => {
-        if (settingsForm) {
-            const data = new FormData(settingsForm);
-            const currentSettings: GameSettings = {
-                theme: data.get('theme-choice') as GameTheme,
-                player: data.get('player-choice') as PlayerColor,
-                size: data.get('size-choice') as BoardSize
-            };
-        }
-        settingsScreen?.classList.replace('screen-visible', 'screen-hidden');
-        gameScreen?.classList.replace('screen-hidden', 'screen-visible');
+    function startGameBtn() {
+        btnStartGame?.addEventListener('click', () => {
+            
+            if (settingsForm) {
+                const data = new FormData(settingsForm);
 
+                setupGameFromSettings(data);
 
-        const memorycards: Memory[] = [
-            {
-                id: 1,
-                memory_image: "src/assets/code-vibes-themes/code-vibes1.png",
-
-            },
-            {
-                id: 2,
-                memory_image: "src/assets/code-vibes-themes/code-vibes1.png",
-
-            },
-
-            {
-                id: 3,
-                memory_image: "src/assets/code-vibes-themes/code-vibes2.png",
-
-            },
-
-            {
-                id: 4,
-                memory_image: "src/assets/code-vibes-themes/code-vibes2.png",
-
-            },
-            {
-                id: 5,
-                memory_image: "src/assets/code-vibes-themes/code-vibes3.png",
-
-            },
-            {
-                id: 6,
-                memory_image: "src/assets/code-vibes-themes/code-vibes3.png",
-
-            },
-            {
-                id: 7,
-                memory_image: "src/assets/code-vibes-themes/code-vibes4.png",
-
-            },
-            {
-                id: 8,
-                memory_image: "src/assets/code-vibes-themes/code-vibes4.png",
-
-            },
-            {
-                id: 9,
-                memory_image: "src/assets/code-vibes-themes/code-vibes5.png",
-
-            },
-            {
-                id: 10,
-                memory_image: "src/assets/code-vibes-themes/code-vibes5.png",
-
-            },
-            {
-                id: 11,
-                memory_image: "src/assets/code-vibes-themes/code-vibes6.png",
-
-            },
-            {
-                id: 12,
-                memory_image: "src/assets/code-vibes-themes/code-vibes6.png",
-
-            },
-            {
-                id: 13,
-                memory_image: "src/assets/code-vibes-themes/code-vibes7.png",
-
-            },
-            {
-                id: 14,
-                memory_image: "src/assets/code-vibes-themes/code-vibes7.png",
-
-            },
-            {
-                id: 15,
-                memory_image: "src/assets/code-vibes-themes/code-vibes8.png",
-
-            },
-            {
-                id: 16,
-                memory_image: "src/assets/code-vibes-themes/code-vibes8.png",
-
-            },
-
-        ];
-
-        for (let i = memorycards.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [memorycards[i], memorycards[j]] = [memorycards[j], memorycards[i]];
-        }
-
-        const showCards = document.getElementById('game-bord');
+            }
 
 
-        if (showCards) {
-            memorycards.forEach(card => {
+            settingsScreen?.classList.replace('screen-visible', 'screen-hidden');
+            gameScreen?.classList.replace('screen-hidden', 'screen-visible');
 
-                showCards.innerHTML += `
+
+            const memorycards: Memory[] = [
+                {
+                    id: 1,
+                    memory_image: "src/assets/code-vibes-themes/code-vibes1.png",
+
+                },
+                {
+                    id: 2,
+                    memory_image: "src/assets/code-vibes-themes/code-vibes1.png",
+
+                },
+
+                {
+                    id: 3,
+                    memory_image: "src/assets/code-vibes-themes/code-vibes2.png",
+
+                },
+
+                {
+                    id: 4,
+                    memory_image: "src/assets/code-vibes-themes/code-vibes2.png",
+
+                },
+                {
+                    id: 5,
+                    memory_image: "src/assets/code-vibes-themes/code-vibes3.png",
+
+                },
+                {
+                    id: 6,
+                    memory_image: "src/assets/code-vibes-themes/code-vibes3.png",
+
+                },
+                {
+                    id: 7,
+                    memory_image: "src/assets/code-vibes-themes/code-vibes4.png",
+
+                },
+                {
+                    id: 8,
+                    memory_image: "src/assets/code-vibes-themes/code-vibes4.png",
+
+                },
+                {
+                    id: 9,
+                    memory_image: "src/assets/code-vibes-themes/code-vibes5.png",
+
+                },
+                {
+                    id: 10,
+                    memory_image: "src/assets/code-vibes-themes/code-vibes5.png",
+
+                },
+                {
+                    id: 11,
+                    memory_image: "src/assets/code-vibes-themes/code-vibes6.png",
+
+                },
+                {
+                    id: 12,
+                    memory_image: "src/assets/code-vibes-themes/code-vibes6.png",
+
+                },
+                {
+                    id: 13,
+                    memory_image: "src/assets/code-vibes-themes/code-vibes7.png",
+
+                },
+                {
+                    id: 14,
+                    memory_image: "src/assets/code-vibes-themes/code-vibes7.png",
+
+                },
+                {
+                    id: 15,
+                    memory_image: "src/assets/code-vibes-themes/code-vibes8.png",
+
+                },
+                {
+                    id: 16,
+                    memory_image: "src/assets/code-vibes-themes/code-vibes8.png",
+
+                },
+
+            ];
+
+            for (let i = memorycards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [memorycards[i], memorycards[j]] = [memorycards[j], memorycards[i]];
+            }
+
+            const showCards = document.getElementById('game-bord');
+
+
+            if (showCards) {
+                memorycards.forEach(card => {
+
+                    showCards.innerHTML += `
     
         <button id="${card.id}" class="card" type="button">
             <div class="card__inner">
@@ -199,18 +209,47 @@ function init() {
         </button>
    
         `;
-            });
+                });
 
-            showCards.addEventListener("click", e => {
-                const card = (e.target as HTMLElement).closest(".card") as HTMLButtonElement
-                if (card) {
-                    card.classList.toggle("is-flipped")
-                }
-            })
+                showCards.addEventListener("click", e => {
+                    const card = (e.target as HTMLElement).closest(".card") as HTMLButtonElement
+                    if (card) {
+                        card.classList.toggle("is-flipped")
+                    }
+                })
+            }
+
+        });
+
+    }
 
 
-        }
+    function setupGameFromSettings(data: FormData): void {
+        
+    currentSettings = {
+        theme: data.get('theme-choice') as GameTheme,
+        player: data.get('player-choice') as PlayerColor,
+        size: data.get('size-choice') as BoardSize
+    };
 
-    });
+    activePlayer = currentSettings.player; 
+
+    scores.blue = 0;
+    scores.orange = 0;
+
+    const playerDisplay = document.getElementById('current-player-display');
+    const scoreBlueDisplay = document.getElementById('score-blue-val');
+    const scoreOrangeDisplay = document.getElementById('score-orange-val');
+
+    if (playerDisplay) {
+        // Macht aus 'blue' -> 'Blue' oder 'orange' -> 'Orange'
+        playerDisplay.textContent = activePlayer.charAt(0).toUpperCase() + activePlayer.slice(1);
+    }
+    
+    if (scoreBlueDisplay) scoreBlueDisplay.textContent = '0';
+    if (scoreOrangeDisplay) scoreOrangeDisplay.textContent = '0';
+}
+
+
 
 }

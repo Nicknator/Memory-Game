@@ -13,9 +13,9 @@ body {
 }
 
 .theme-preview-img {
-    width: 100%; 
-    max-width: 500px; 
-    height: auto; 
+    width: 100%;
+    max-width: 500px;
+    height: auto;
     display: block;
 }
 
@@ -50,5 +50,24 @@ body {
 
     &.is-flipped .card__inner {
         transform: rotateY(180deg);
+    }
+}
+
+
+
+.game-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    // padding-bottom: 20px;
+    // padding-top: 20px;
+
+
+
+    .score-display {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
     }
 }
