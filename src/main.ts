@@ -23,6 +23,9 @@ const scores = {
     orange: 0
 };
 
+let lockBoard = false;
+let flippedCards: HTMLButtonElement[] = [];
+
 init();
 
 function init() {
@@ -89,7 +92,7 @@ function init() {
 
     function startGameBtn() {
         btnStartGame?.addEventListener('click', () => {
-            
+
             if (settingsForm) {
                 const data = new FormData(settingsForm);
 
@@ -201,54 +204,131 @@ function init() {
 
                     showCards.innerHTML += `
     
-        <button id="${card.id}" class="card" type="button">
-            <div class="card__inner">
-                <img src="${card.memory_image}" class="card__face">
-                <img src="src/assets/game-page/card-backface.png" alt="backface-card" class="card__face card__face--back" >
-            </div>
-        </button>
+                <button id="card-${card.id}" data-image="${card.memory_image}" class="card" type="button">
+                     <div class="card__inner">
+                         <img src="${card.memory_image}" class="card__face">
+                         <img src="src/assets/game-page/card-backface.png" alt="backface-card" class="card__face card__face--back">
+                     </div>
+                </button>
    
         `;
                 });
 
                 showCards.addEventListener("click", e => {
-                    const card = (e.target as HTMLElement).closest(".card") as HTMLButtonElement
-                    if (card) {
-                        card.classList.toggle("is-flipped")
+                    updateHUD();
+                    const card = (e.target as HTMLElement).closest(".card") as HTMLButtonElement;
+
+
+                    // Der Türsteher bleibt hier, um das Event sofort abbrechen zu können
+                    if (!card || lockBoard || card.classList.contains("is-flipped") || flippedCards.includes(card)) {
+                        return;
                     }
-                })
+
+                    // Karte umdrehen & speichern
+                    flipCard(card);
+
+                    // Prüfen, ob das die zweite Karte war
+                    if (flippedCards.length === 2) {
+                        checkCardsMatch();
+                    }
+
+
+                });
             }
 
         });
 
     }
 
+    function flipCard(card: HTMLButtonElement) {
+        card.classList.add('is-flipped');
+        flippedCards.push(card);
+    }
+
+    function checkCardsMatch() {
+        lockBoard = true;
+        const card1 = flippedCards[0];
+        const card2 = flippedCards[1];
+        const isMatch = card1.dataset.image === card2.dataset.image;
+
+        if (isMatch) {
+            scores[activePlayer] += 1;
+            flippedCards = [];
+            lockBoard = false;
+
+            updateHUD();
+            // checkGameOver(); 
+        } else {
+            setTimeout(() => {
+                card1.classList.remove("is-flipped");
+                card2.classList.remove("is-flipped");
+                flippedCards = [];
+                if (activePlayer === "blue") {
+                    activePlayer = "orange";
+                } else {
+                    activePlayer = "blue";
+                }
+                lockBoard = false;
+                updateHUD();
+            }, 2000);
+        }
+    }
+
+    function updateHUD() {
+        const scoreBlueDisplay = document.getElementById('score-blue-val');
+        const scoreOrangeDisplay = document.getElementById('score-orange-val');
+        const playerDisplay = document.getElementById('current-player-display');
+
+        // 1. Blauen Score updaten
+        if (scoreBlueDisplay) {
+            scoreBlueDisplay.textContent = scores.blue.toString();
+        }
+
+        // 2. Orangen Score updaten
+        if (scoreOrangeDisplay) {
+            scoreOrangeDisplay.textContent = scores.orange.toString();
+        }
+
+        if (playerDisplay) {
+            playerDisplay.textContent = activePlayer.charAt(0).toUpperCase() + activePlayer.slice(1);
+        }
+    }
+
+
+
 
     function setupGameFromSettings(data: FormData): void {
-        
-    currentSettings = {
-        theme: data.get('theme-choice') as GameTheme,
-        player: data.get('player-choice') as PlayerColor,
-        size: data.get('size-choice') as BoardSize
-    };
 
-    activePlayer = currentSettings.player; 
 
-    scores.blue = 0;
-    scores.orange = 0;
+        currentSettings = {
+            theme: data.get('theme-choice') as GameTheme,
+            player: (data.get('player-choice') as string).toLowerCase() as PlayerColor,
+            size: data.get('size-choice') as BoardSize
+        };
 
-    const playerDisplay = document.getElementById('current-player-display');
-    const scoreBlueDisplay = document.getElementById('score-blue-val');
-    const scoreOrangeDisplay = document.getElementById('score-orange-val');
+        activePlayer = currentSettings.player;
 
-    if (playerDisplay) {
-        // Macht aus 'blue' -> 'Blue' oder 'orange' -> 'Orange'
-        playerDisplay.textContent = activePlayer.charAt(0).toUpperCase() + activePlayer.slice(1);
+        scores.blue = 0;
+        scores.orange = 0;
+
+        const playerDisplay = document.getElementById('current-player-display');
+        const scoreBlueDisplay = document.getElementById('score-blue-val');
+        const scoreOrangeDisplay = document.getElementById('score-orange-val');
+
+        if (playerDisplay) {
+
+            playerDisplay.textContent = activePlayer.charAt(0).toUpperCase() + activePlayer.slice(1);
+        }
+
+        if (scoreBlueDisplay) scoreBlueDisplay.textContent = '0';
+        if (scoreOrangeDisplay) scoreOrangeDisplay.textContent = '0';
+        updateHUD();
+
     }
-    
-    if (scoreBlueDisplay) scoreBlueDisplay.textContent = '0';
-    if (scoreOrangeDisplay) scoreOrangeDisplay.textContent = '0';
-}
+
+
+
+
 
 
 
