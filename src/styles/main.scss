@@ -71,3 +71,21 @@ body {
         gap: 10px;
     }
 }
+
+
+
+#game-over-screen {
+    // Hier kommt euer Standard-Spielfeld-Ende-Design hin (z.B. zentriert)
+    
+    // WENN die Klasse "blue" vom TypeScript hinzugefügt wird:
+    &.blue {
+        background-color: #007bff; // Ein schönes Blau
+        color: white;
+    }
+
+    // WENN die Klasse "orange" vom TypeScript hinzugefügt wird:
+    &.orange {
+        background-color: #ff851b; // Ein schönes Orange
+        color: white;
+    }
+}

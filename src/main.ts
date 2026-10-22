@@ -210,24 +210,18 @@ function init() {
                          <img src="src/assets/game-page/card-backface.png" alt="backface-card" class="card__face card__face--back">
                      </div>
                 </button>
-   
-        `;
+                `;
                 });
-
                 showCards.addEventListener("click", e => {
                     updateHUD();
                     const card = (e.target as HTMLElement).closest(".card") as HTMLButtonElement;
 
-
-                    // Der Türsteher bleibt hier, um das Event sofort abbrechen zu können
                     if (!card || lockBoard || card.classList.contains("is-flipped") || flippedCards.includes(card)) {
                         return;
                     }
 
-                    // Karte umdrehen & speichern
                     flipCard(card);
 
-                    // Prüfen, ob das die zweite Karte war
                     if (flippedCards.length === 2) {
                         checkCardsMatch();
                     }
@@ -257,7 +251,7 @@ function init() {
             lockBoard = false;
 
             updateHUD();
-            // checkGameOver(); 
+            checkGameOver(); 
         } else {
             setTimeout(() => {
                 card1.classList.remove("is-flipped");
@@ -270,6 +264,7 @@ function init() {
                 }
                 lockBoard = false;
                 updateHUD();
+                checkGameOver();
             }, 2000);
         }
     }
@@ -279,12 +274,10 @@ function init() {
         const scoreOrangeDisplay = document.getElementById('score-orange-val');
         const playerDisplay = document.getElementById('current-player-display');
 
-        // 1. Blauen Score updaten
         if (scoreBlueDisplay) {
             scoreBlueDisplay.textContent = scores.blue.toString();
         }
 
-        // 2. Orangen Score updaten
         if (scoreOrangeDisplay) {
             scoreOrangeDisplay.textContent = scores.orange.toString();
         }
@@ -327,9 +320,35 @@ function init() {
     }
 
 
+    function checkGameOver() {
+        const totalpaare = 8;
+        const foundPaare = scores.blue + scores.orange;
 
+        if (foundPaare === totalpaare) {
 
+            const gameOverScreen = document.getElementById('game-over-screen');
+            const winnerText = document.getElementById('game-over-text');
+            const gameScreen = document.getElementById('game-screen');
 
+            if (gameOverScreen && winnerText && gameScreen) {
 
+                if (scores.blue > scores.orange) {
+                    winnerText.textContent = "Blau gewinnt das Spiel!";
+                    gameOverScreen.classList.add('blue');
+                }
+                else if (scores.orange > scores.blue) {
+                    winnerText.textContent = "Orange gewinnt das Spiel!";
+                    gameOverScreen.classList.add('orange');
+                }
 
+                else {
+                    winnerText.textContent = "Unentschieden!";
+                }
+            }
+
+            gameScreen?.classList.replace('screen-visible', 'screen-hidden');
+            gameOverScreen?.classList.replace('screen-hidden', 'screen-visible');
+
+        }
+    }
 }
