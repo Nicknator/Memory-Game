@@ -119,7 +119,21 @@
             <div class="current-player-status">
                 Aktueller Spieler: <span id="current-player-display" class="indicator-blue">0</span>
             </div>
+
+
             <button id="btn-exit-game" class="exit-btn">Exit Game</button>
+             
+            <div id="exit-modal" class="modal-overlay hidden">
+                <div class="modal-box">
+                    <h2>Are you sure you want to quit the game?</h2>
+
+                    <div class="modal-buttons">
+                        <button id="btn-back-to-game" class="btn-filled">Back to game</button>
+                        <button id="btn-confirm-exit" class="btn-outline">Exit game</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div id="game-bord" class="game-bord"></div>
     </section>

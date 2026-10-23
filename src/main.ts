@@ -46,6 +46,8 @@ function init() {
     const liveThemeDisplay = document.getElementById('theme-display');
     const liveSizeDisplay = document.getElementById('size-display');
     const previewContainer = document.getElementById('theme-preview-container');
+    const btnExitGame = document.getElementById('btn-exit-game');
+
 
     function updateLiveDisplays() {
         if (!settingsForm) return;
@@ -70,7 +72,6 @@ function init() {
             else if (selectedTheme === "Foods theme") {
                 previewContainer.innerHTML = `<img src="src/assets/setting-page/1.themes/Property 1=foods.png" alt="Foods Theme" class="theme-preview-img">`;
             }
-
         }
 
         const selectedPlayer = data.get('player-choice') as string;
@@ -95,14 +96,33 @@ function init() {
 
             if (settingsForm) {
                 const data = new FormData(settingsForm);
-
                 setupGameFromSettings(data);
-
             }
-
 
             settingsScreen?.classList.replace('screen-visible', 'screen-hidden');
             gameScreen?.classList.replace('screen-hidden', 'screen-visible');
+            
+
+            const exitModal = document.getElementById('exit-modal');
+            const backToGameBtn = document.getElementById('btn-back-to-game');
+            const confirmExitBtn = document.getElementById('btn-confirm-exit');
+
+            btnExitGame?.addEventListener('click', () => {
+                exitModal?.classList.remove('hidden'); 
+            });
+
+            backToGameBtn?.addEventListener('click', () => {
+                exitModal?.classList.add('hidden'); 
+            });
+
+            confirmExitBtn?.addEventListener('click', () => {
+                exitModal?.classList.add('hidden'); 
+
+                gameScreen?.classList.replace('screen-visible', 'screen-hidden');
+                settingsScreen?.classList.replace('screen-hidden', 'screen-visible');
+                if (showCards) showCards.innerHTML = '';
+
+            });
 
 
             const memorycards: Memory[] = [
@@ -251,7 +271,7 @@ function init() {
             lockBoard = false;
 
             updateHUD();
-            checkGameOver(); 
+            checkGameOver();
         } else {
             setTimeout(() => {
                 card1.classList.remove("is-flipped");

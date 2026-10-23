@@ -89,3 +89,23 @@ body {
         color: white;
     }
 }
+
+// Variante A: Direkt gekoppelt für höchste Spezifizität
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex; // Sorgt für die Zentrierung, wenn sichtbar
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+
+    // Wenn .hidden zusätzlich auf dem Overlay liegt, schlägt display: none fehl ohne !important
+    &.hidden {
+        display: none;
+    }
+}
+
