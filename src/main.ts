@@ -52,8 +52,10 @@ function init() {
     function updateLiveDisplays() {
         if (!settingsForm) return;
         const data = new FormData(settingsForm);
-
         const selectedTheme = data.get('theme-choice') as string;
+
+        // let memorycards: Memory[] = [];
+
         if (liveThemeDisplay && selectedTheme) {
             liveThemeDisplay.textContent = selectedTheme.charAt(0).toUpperCase() + selectedTheme.slice(1);
         }
@@ -92,6 +94,7 @@ function init() {
     startGameBtn();
 
     function startGameBtn() {
+
         btnStartGame?.addEventListener('click', () => {
 
             if (settingsForm) {
@@ -101,115 +104,140 @@ function init() {
 
             settingsScreen?.classList.replace('screen-visible', 'screen-hidden');
             gameScreen?.classList.replace('screen-hidden', 'screen-visible');
-            
+
 
             const exitModal = document.getElementById('exit-modal');
             const backToGameBtn = document.getElementById('btn-back-to-game');
             const confirmExitBtn = document.getElementById('btn-confirm-exit');
 
             btnExitGame?.addEventListener('click', () => {
-                exitModal?.classList.remove('hidden'); 
+                exitModal?.classList.remove('hidden');
             });
 
             backToGameBtn?.addEventListener('click', () => {
-                exitModal?.classList.add('hidden'); 
+                exitModal?.classList.add('hidden');
             });
 
             confirmExitBtn?.addEventListener('click', () => {
-                exitModal?.classList.add('hidden'); 
+                exitModal?.classList.add('hidden');
 
                 gameScreen?.classList.replace('screen-visible', 'screen-hidden');
                 settingsScreen?.classList.replace('screen-hidden', 'screen-visible');
-                if (showCards) showCards.innerHTML = '';
 
+                if (showCards) showCards.innerHTML = '';
             });
 
+            const data = new FormData(settingsForm as HTMLFormElement);
+            const selectedTheme = data.get('theme-choice') as string;
 
-            const memorycards: Memory[] = [
-                {
-                    id: 1,
-                    memory_image: "src/assets/code-vibes-themes/code-vibes1.png",
+            let memorycards: Memory[] = [];
+            let backfaceImagePath: string = "src/assets/game-page/card-backface1.png";
 
-                },
-                {
-                    id: 2,
-                    memory_image: "src/assets/code-vibes-themes/code-vibes1.png",
+            if (selectedTheme === "Code vibes theme") {
+                backfaceImagePath = "src/assets/game-page/card-backface1.png";
+                memorycards = [
+                    { id: 1, memory_image: "src/assets/code-vibes-themes/code-vibes1.png" },
+                    { id: 2, memory_image: "src/assets/code-vibes-themes/code-vibes1.png" },
+                    { id: 3, memory_image: "src/assets/code-vibes-themes/code-vibes2.png" },
+                    { id: 4, memory_image: "src/assets/code-vibes-themes/code-vibes2.png" },
+                    { id: 5, memory_image: "src/assets/code-vibes-themes/code-vibes3.png" },
+                    { id: 6, memory_image: "src/assets/code-vibes-themes/code-vibes3.png" },
+                    { id: 7, memory_image: "src/assets/code-vibes-themes/code-vibes4.png" },
+                    { id: 8, memory_image: "src/assets/code-vibes-themes/code-vibes4.png" },
+                    { id: 9, memory_image: "src/assets/code-vibes-themes/code-vibes5.png" },
+                    { id: 10, memory_image: "src/assets/code-vibes-themes/code-vibes5.png" },
+                    { id: 11, memory_image: "src/assets/code-vibes-themes/code-vibes6.png" },
+                    { id: 12, memory_image: "src/assets/code-vibes-themes/code-vibes6.png" },
+                    { id: 13, memory_image: "src/assets/code-vibes-themes/code-vibes7.png" },
+                    { id: 14, memory_image: "src/assets/code-vibes-themes/code-vibes7.png" },
+                    { id: 15, memory_image: "src/assets/code-vibes-themes/code-vibes8.png" },
+                    { id: 16, memory_image: "src/assets/code-vibes-themes/code-vibes8.png" },
+                    // { id: 17, memory_image: "src/assets/code-vibes-themes/code-vibes9.png" },
+                    // { id: 18, memory_image: "src/assets/code-vibes-themes/code-vibes9.png" },
+                    // { id: 19, memory_image: "src/assets/code-vibes-themes/code-vibes10.png" },
+                    // { id: 20, memory_image: "src/assets/code-vibes-themes/code-vibes10.png" },
+                    // { id: 21, memory_image: "src/assets/code-vibes-themes/code-vibes11.png" },
+                    // { id: 22, memory_image: "src/assets/code-vibes-themes/code-vibes11.png" },
+                    // { id: 23, memory_image: "src/assets/code-vibes-themes/code-vibes12.png" },
+                    // { id: 24, memory_image: "src/assets/code-vibes-themes/code-vibes12.png" },
+                    // { id: 25, memory_image: "src/assets/code-vibes-themes/code-vibes13.png" },
+                    // { id: 26, memory_image: "src/assets/code-vibes-themes/code-vibes13.png" },
+                    // { id: 27, memory_image: "src/assets/code-vibes-themes/code-vibes14.png" },
+                    // { id: 28, memory_image: "src/assets/code-vibes-themes/code-vibes14.png" },
+                    // { id: 29, memory_image: "src/assets/code-vibes-themes/code-vibes15.png" },
+                    // { id: 30, memory_image: "src/assets/code-vibes-themes/code-vibes15.png" },
+                    // { id: 31, memory_image: "src/assets/code-vibes-themes/code-vibes16.png" },
+                    // { id: 32, memory_image: "src/assets/code-vibes-themes/code-vibes16.png" },
+                    // { id: 33, memory_image: "src/assets/code-vibes-themes/code-vibes17.png" },
+                    // { id: 34, memory_image: "src/assets/code-vibes-themes/code-vibes17.png" },
+                    // { id: 35, memory_image: "src/assets/code-vibes-themes/code-vibes18.png" },
+                    // { id: 36, memory_image: "src/assets/code-vibes-themes/code-vibes18.png" }
+                ];
+            }
+            else if (selectedTheme === "DA Projects theme") {
+                backfaceImagePath = "src/assets/game-page/card-backface2.png";
+                memorycards = [
+                    { id: 1, memory_image: "src/assets/da-projects-theme/da-projects1.png" },
+                    { id: 2, memory_image: "src/assets/da-projects-theme/da-projects1.png" },
+                    { id: 3, memory_image: "src/assets/da-projects-theme/da-projects2.png" },
+                    { id: 4, memory_image: "src/assets/da-projects-theme/da-projects2.png" },
+                    { id: 5, memory_image: "src/assets/da-projects-theme/da-projects3.png" },
+                    { id: 6, memory_image: "src/assets/da-projects-theme/da-projects3.png" },
+                    { id: 7, memory_image: "src/assets/da-projects-theme/da-projects4.png" },
+                    { id: 8, memory_image: "src/assets/da-projects-theme/da-projects4.png" },
+                    { id: 9, memory_image: "src/assets/da-projects-theme/da-projects5.png" },
+                    { id: 10, memory_image: "src/assets/da-projects-theme/da-projects5.png" },
+                    { id: 11, memory_image: "src/assets/da-projects-theme/da-projects6.png" },
+                    { id: 12, memory_image: "src/assets/da-projects-theme/da-projects6.png" },
+                    { id: 13, memory_image: "src/assets/da-projects-theme/da-projects7.png" },
+                    { id: 14, memory_image: "src/assets/da-projects-theme/da-projects7.png" },
+                    { id: 15, memory_image: "src/assets/da-projects-theme/da-projects8.png" },
+                    { id: 16, memory_image: "src/assets/da-projects-theme/da-projects8.png" },
+                    // { id: 17, memory_image: "src/assets/da-projects-theme/da-projects9.png" },
+                    // { id: 18, memory_image: "src/assets/da-projects-theme/da-projects9.png" },
+                    // { id: 19, memory_image: "src/assets/da-projects-theme/da-projects10.png" },
+                    // { id: 20, memory_image: "src/assets/da-projects-theme/da-projects10.png" },
+                    // { id: 21, memory_image: "src/assets/da-projects-theme/da-projects11.png" },
+                    // { id: 22, memory_image: "src/assets/da-projects-theme/da-projects11.png" },
+                    // { id: 23, memory_image: "src/assets/da-projects-theme/da-projects12.png" },
+                    // { id: 24, memory_image: "src/assets/da-projects-theme/da-projects12.png" },
+                    // { id: 25, memory_image: "src/assets/da-projects-theme/da-projects13.png" },
+                    // { id: 26, memory_image: "src/assets/da-projects-theme/da-projects13.png" },
+                    // { id: 27, memory_image: "src/assets/da-projects-theme/da-projects14.png" },
+                    // { id: 28, memory_image: "src/assets/da-projects-theme/da-projects14.png" },
+                    // { id: 29, memory_image: "src/assets/da-projects-theme/da-projects15.png" },
+                    // { id: 30, memory_image: "src/assets/da-projects-theme/da-projects15.png" },
+                    // { id: 31, memory_image: "src/assets/da-projects-theme/da-projects16.png" },
+                    // { id: 32, memory_image: "src/assets/da-projects-theme/da-projects16.png" },
+                    // { id: 33, memory_image: "src/assets/da-projects-theme/da-projects17.png" },
+                    // { id: 34, memory_image: "src/assets/da-projects-theme/da-projects17.png" },
+                    // { id: 35, memory_image: "src/assets/da-projects-theme/da-projects18.png" },
+                    // { id: 36, memory_image: "src/assets/da-projects-theme/da-projects18.png" }
+                ];
+            }
 
-                },
+            else if (selectedTheme === "Foods theme") {
+                backfaceImagePath = "src/assets/game-page/card-backface3.png";
+                memorycards = [
+                    { id: 1, memory_image: "src/assets/food-themes/food1.png" },
+                    { id: 2, memory_image: "src/assets/food-themes/food1.png" },
+                    { id: 3, memory_image: "src/assets/food-themes/food2.png" },
+                    { id: 4, memory_image: "src/assets/food-themes/food2.png" },
+                    { id: 5, memory_image: "src/assets/food-themes/food3.png" },
+                    { id: 6, memory_image: "src/assets/food-themes/food3.png" },
+                    { id: 7, memory_image: "src/assets/food-themes/food4.png" },
+                    { id: 8, memory_image: "src/assets/food-themes/food4.png" },
+                    { id: 9, memory_image: "src/assets/food-themes/food5.png" },
+                    { id: 10, memory_image: "src/assets/food-themes/food5.png" },
+                    { id: 11, memory_image: "src/assets/food-themes/food6.png" },
+                    { id: 12, memory_image: "src/assets/food-themes/food6.png" },
+                    { id: 13, memory_image: "src/assets/food-themes/food7.png" },
+                    { id: 14, memory_image: "src/assets/food-themes/food7.png" },
+                    { id: 15, memory_image: "src/assets/food-themes/food8.png" },
+                    { id: 16, memory_image: "src/assets/food-themes/food8.png" },
+                ];
+            }
 
-                {
-                    id: 3,
-                    memory_image: "src/assets/code-vibes-themes/code-vibes2.png",
-
-                },
-
-                {
-                    id: 4,
-                    memory_image: "src/assets/code-vibes-themes/code-vibes2.png",
-
-                },
-                {
-                    id: 5,
-                    memory_image: "src/assets/code-vibes-themes/code-vibes3.png",
-
-                },
-                {
-                    id: 6,
-                    memory_image: "src/assets/code-vibes-themes/code-vibes3.png",
-
-                },
-                {
-                    id: 7,
-                    memory_image: "src/assets/code-vibes-themes/code-vibes4.png",
-
-                },
-                {
-                    id: 8,
-                    memory_image: "src/assets/code-vibes-themes/code-vibes4.png",
-
-                },
-                {
-                    id: 9,
-                    memory_image: "src/assets/code-vibes-themes/code-vibes5.png",
-
-                },
-                {
-                    id: 10,
-                    memory_image: "src/assets/code-vibes-themes/code-vibes5.png",
-
-                },
-                {
-                    id: 11,
-                    memory_image: "src/assets/code-vibes-themes/code-vibes6.png",
-
-                },
-                {
-                    id: 12,
-                    memory_image: "src/assets/code-vibes-themes/code-vibes6.png",
-
-                },
-                {
-                    id: 13,
-                    memory_image: "src/assets/code-vibes-themes/code-vibes7.png",
-
-                },
-                {
-                    id: 14,
-                    memory_image: "src/assets/code-vibes-themes/code-vibes7.png",
-
-                },
-                {
-                    id: 15,
-                    memory_image: "src/assets/code-vibes-themes/code-vibes8.png",
-
-                },
-                {
-                    id: 16,
-                    memory_image: "src/assets/code-vibes-themes/code-vibes8.png",
-
-                },
-
-            ];
 
             for (let i = memorycards.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -218,20 +246,19 @@ function init() {
 
             const showCards = document.getElementById('game-bord');
 
-
             if (showCards) {
+                showCards.innerHTML = '';
                 memorycards.forEach(card => {
-
                     showCards.innerHTML += `
-    
                 <button id="card-${card.id}" data-image="${card.memory_image}" class="card" type="button">
                      <div class="card__inner">
                          <img src="${card.memory_image}" class="card__face">
-                         <img src="src/assets/game-page/card-backface.png" alt="backface-card" class="card__face card__face--back">
+                         <img src="${backfaceImagePath}" alt="backface-card" class="card__face card__face--back">
                      </div>
                 </button>
                 `;
                 });
+
                 showCards.addEventListener("click", e => {
                     updateHUD();
                     const card = (e.target as HTMLElement).closest(".card") as HTMLButtonElement;
@@ -245,14 +272,11 @@ function init() {
                     if (flippedCards.length === 2) {
                         checkCardsMatch();
                     }
-
-
                 });
             }
-
         });
-
     }
+
 
     function flipCard(card: HTMLButtonElement) {
         card.classList.add('is-flipped');
@@ -260,6 +284,7 @@ function init() {
     }
 
     function checkCardsMatch() {
+
         lockBoard = true;
         const card1 = flippedCards[0];
         const card2 = flippedCards[1];
@@ -349,7 +374,6 @@ function init() {
             const gameOverScreen = document.getElementById('game-over-screen');
             const winnerText = document.getElementById('game-over-text');
             const gameScreen = document.getElementById('game-screen');
-
             if (gameOverScreen && winnerText && gameScreen) {
 
                 if (scores.blue > scores.orange) {
@@ -365,10 +389,54 @@ function init() {
                     winnerText.textContent = "Unentschieden!";
                 }
             }
-
             gameScreen?.classList.replace('screen-visible', 'screen-hidden');
             gameOverScreen?.classList.replace('screen-hidden', 'screen-visible');
 
         }
     }
+
+    setupEventListeners();
+
+    function setupEventListeners() {
+        const playBtnToSettings = document.getElementById('btn-to-settings');
+        // const btnStartGame = document.getElementById('btnStartGame');
+        // const btnExitGame = document.getElementById('btn-exit-game');
+        // const backToGameBtn = document.getElementById('btn-back-to-game');
+        // const confirmExitBtn = document.getElementById('btn-confirm-exit');
+
+        const showCards = document.getElementById('game-bord');
+        const gameOverScreen = document.getElementById('game-over-screen');
+        const btnBackToSettings = document.getElementById('btn-back-to-settings');
+
+        // Navigation: Home -> Settings
+        playBtnToSettings?.addEventListener('click', () => {
+            homeScreen?.classList.replace('screen-visible', 'screen-hidden');
+            settingsScreen?.classList.replace('screen-hidden', 'screen-visible');
+        });
+
+        // ... restlicher Code bleibt genau gleich ...
+
+        // --- GAME OVER BUTTON ("Nochmal spielen") ---
+        btnBackToSettings?.addEventListener('click', () => {
+            gameOverScreen?.classList.replace('screen-visible', 'screen-hidden');
+            settingsScreen?.classList.replace('screen-hidden', 'screen-visible');
+
+            if (showCards) showCards.innerHTML = '';
+
+            scores.blue = 0;
+            scores.orange = 0;
+            flippedCards = [];
+            lockBoard = false;
+        });
+
+        // Karten-Klicks
+        showCards?.addEventListener("click", (e) => {
+            const card = (e.target as HTMLElement).closest(".card") as HTMLButtonElement;
+            if (!card || lockBoard || card.classList.contains("is-flipped")) return;
+        });
+    }
+
+
 }
+
+

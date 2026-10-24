@@ -75,22 +75,18 @@ body {
 
 
 #game-over-screen {
-    // Hier kommt euer Standard-Spielfeld-Ende-Design hin (z.B. zentriert)
     
-    // WENN die Klasse "blue" vom TypeScript hinzugefügt wird:
     &.blue {
         background-color: #007bff; // Ein schönes Blau
         color: white;
     }
 
-    // WENN die Klasse "orange" vom TypeScript hinzugefügt wird:
     &.orange {
         background-color: #ff851b; // Ein schönes Orange
         color: white;
     }
 }
 
-// Variante A: Direkt gekoppelt für höchste Spezifizität
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -98,12 +94,11 @@ body {
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
-    display: flex; // Sorgt für die Zentrierung, wenn sichtbar
+    display: flex; 
     justify-content: center;
     align-items: center;
     z-index: 999;
 
-    // Wenn .hidden zusätzlich auf dem Overlay liegt, schlägt display: none fehl ohne !important
     &.hidden {
         display: none;
     }
