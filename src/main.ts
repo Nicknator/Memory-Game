@@ -26,6 +26,8 @@ const scores = {
 let lockBoard = false;
 let flippedCards: HTMLButtonElement[] = [];
 
+let selectedSize: string = "16";
+
 init();
 
 function init() {
@@ -81,10 +83,11 @@ function init() {
             livePlayerDisplay.textContent = selectedPlayer.charAt(0).toUpperCase() + selectedPlayer.slice(1);
         }
 
-        const selectedSize = data.get('size-choice') as string;
+        selectedSize = data.get('size-choice') as string;
         if (liveSizeDisplay && selectedSize) {
             liveSizeDisplay.textContent = `${selectedSize} Cards`;
         }
+
     }
 
     updateLiveDisplays();
@@ -152,26 +155,26 @@ function init() {
                     { id: 14, memory_image: "src/assets/code-vibes-themes/code-vibes7.png" },
                     { id: 15, memory_image: "src/assets/code-vibes-themes/code-vibes8.png" },
                     { id: 16, memory_image: "src/assets/code-vibes-themes/code-vibes8.png" },
-                    // { id: 17, memory_image: "src/assets/code-vibes-themes/code-vibes9.png" },
-                    // { id: 18, memory_image: "src/assets/code-vibes-themes/code-vibes9.png" },
-                    // { id: 19, memory_image: "src/assets/code-vibes-themes/code-vibes10.png" },
-                    // { id: 20, memory_image: "src/assets/code-vibes-themes/code-vibes10.png" },
-                    // { id: 21, memory_image: "src/assets/code-vibes-themes/code-vibes11.png" },
-                    // { id: 22, memory_image: "src/assets/code-vibes-themes/code-vibes11.png" },
-                    // { id: 23, memory_image: "src/assets/code-vibes-themes/code-vibes12.png" },
-                    // { id: 24, memory_image: "src/assets/code-vibes-themes/code-vibes12.png" },
-                    // { id: 25, memory_image: "src/assets/code-vibes-themes/code-vibes13.png" },
-                    // { id: 26, memory_image: "src/assets/code-vibes-themes/code-vibes13.png" },
-                    // { id: 27, memory_image: "src/assets/code-vibes-themes/code-vibes14.png" },
-                    // { id: 28, memory_image: "src/assets/code-vibes-themes/code-vibes14.png" },
-                    // { id: 29, memory_image: "src/assets/code-vibes-themes/code-vibes15.png" },
-                    // { id: 30, memory_image: "src/assets/code-vibes-themes/code-vibes15.png" },
-                    // { id: 31, memory_image: "src/assets/code-vibes-themes/code-vibes16.png" },
-                    // { id: 32, memory_image: "src/assets/code-vibes-themes/code-vibes16.png" },
-                    // { id: 33, memory_image: "src/assets/code-vibes-themes/code-vibes17.png" },
-                    // { id: 34, memory_image: "src/assets/code-vibes-themes/code-vibes17.png" },
-                    // { id: 35, memory_image: "src/assets/code-vibes-themes/code-vibes18.png" },
-                    // { id: 36, memory_image: "src/assets/code-vibes-themes/code-vibes18.png" }
+                    { id: 17, memory_image: "src/assets/code-vibes-themes/code-vibes9.png" },
+                    { id: 18, memory_image: "src/assets/code-vibes-themes/code-vibes9.png" },
+                    { id: 19, memory_image: "src/assets/code-vibes-themes/code-vibes10.png" },
+                    { id: 20, memory_image: "src/assets/code-vibes-themes/code-vibes10.png" },
+                    { id: 21, memory_image: "src/assets/code-vibes-themes/code-vibes11.png" },
+                    { id: 22, memory_image: "src/assets/code-vibes-themes/code-vibes11.png" },
+                    { id: 23, memory_image: "src/assets/code-vibes-themes/code-vibes12.png" },
+                    { id: 24, memory_image: "src/assets/code-vibes-themes/code-vibes12.png" },
+                    { id: 25, memory_image: "src/assets/code-vibes-themes/code-vibes13.png" },
+                    { id: 26, memory_image: "src/assets/code-vibes-themes/code-vibes13.png" },
+                    { id: 27, memory_image: "src/assets/code-vibes-themes/code-vibes14.png" },
+                    { id: 28, memory_image: "src/assets/code-vibes-themes/code-vibes14.png" },
+                    { id: 29, memory_image: "src/assets/code-vibes-themes/code-vibes15.png" },
+                    { id: 30, memory_image: "src/assets/code-vibes-themes/code-vibes15.png" },
+                    { id: 31, memory_image: "src/assets/code-vibes-themes/code-vibes16.png" },
+                    { id: 32, memory_image: "src/assets/code-vibes-themes/code-vibes16.png" },
+                    { id: 33, memory_image: "src/assets/code-vibes-themes/code-vibes17.png" },
+                    { id: 34, memory_image: "src/assets/code-vibes-themes/code-vibes17.png" },
+                    { id: 35, memory_image: "src/assets/code-vibes-themes/code-vibes18.png" },
+                    { id: 36, memory_image: "src/assets/code-vibes-themes/code-vibes18.png" }
                 ];
             }
             else if (selectedTheme === "DA Projects theme") {
@@ -193,26 +196,26 @@ function init() {
                     { id: 14, memory_image: "src/assets/da-projects-theme/da-projects7.png" },
                     { id: 15, memory_image: "src/assets/da-projects-theme/da-projects8.png" },
                     { id: 16, memory_image: "src/assets/da-projects-theme/da-projects8.png" },
-                    // { id: 17, memory_image: "src/assets/da-projects-theme/da-projects9.png" },
-                    // { id: 18, memory_image: "src/assets/da-projects-theme/da-projects9.png" },
-                    // { id: 19, memory_image: "src/assets/da-projects-theme/da-projects10.png" },
-                    // { id: 20, memory_image: "src/assets/da-projects-theme/da-projects10.png" },
-                    // { id: 21, memory_image: "src/assets/da-projects-theme/da-projects11.png" },
-                    // { id: 22, memory_image: "src/assets/da-projects-theme/da-projects11.png" },
-                    // { id: 23, memory_image: "src/assets/da-projects-theme/da-projects12.png" },
-                    // { id: 24, memory_image: "src/assets/da-projects-theme/da-projects12.png" },
-                    // { id: 25, memory_image: "src/assets/da-projects-theme/da-projects13.png" },
-                    // { id: 26, memory_image: "src/assets/da-projects-theme/da-projects13.png" },
-                    // { id: 27, memory_image: "src/assets/da-projects-theme/da-projects14.png" },
-                    // { id: 28, memory_image: "src/assets/da-projects-theme/da-projects14.png" },
-                    // { id: 29, memory_image: "src/assets/da-projects-theme/da-projects15.png" },
-                    // { id: 30, memory_image: "src/assets/da-projects-theme/da-projects15.png" },
-                    // { id: 31, memory_image: "src/assets/da-projects-theme/da-projects16.png" },
-                    // { id: 32, memory_image: "src/assets/da-projects-theme/da-projects16.png" },
-                    // { id: 33, memory_image: "src/assets/da-projects-theme/da-projects17.png" },
-                    // { id: 34, memory_image: "src/assets/da-projects-theme/da-projects17.png" },
-                    // { id: 35, memory_image: "src/assets/da-projects-theme/da-projects18.png" },
-                    // { id: 36, memory_image: "src/assets/da-projects-theme/da-projects18.png" }
+                    { id: 17, memory_image: "src/assets/da-projects-theme/da-projects9.png" },
+                    { id: 18, memory_image: "src/assets/da-projects-theme/da-projects9.png" },
+                    { id: 19, memory_image: "src/assets/da-projects-theme/da-projects10.png" },
+                    { id: 20, memory_image: "src/assets/da-projects-theme/da-projects10.png" },
+                    { id: 21, memory_image: "src/assets/da-projects-theme/da-projects11.png" },
+                    { id: 22, memory_image: "src/assets/da-projects-theme/da-projects11.png" },
+                    { id: 23, memory_image: "src/assets/da-projects-theme/da-projects12.png" },
+                    { id: 24, memory_image: "src/assets/da-projects-theme/da-projects12.png" },
+                    { id: 25, memory_image: "src/assets/da-projects-theme/da-projects13.png" },
+                    { id: 26, memory_image: "src/assets/da-projects-theme/da-projects13.png" },
+                    { id: 27, memory_image: "src/assets/da-projects-theme/da-projects14.png" },
+                    { id: 28, memory_image: "src/assets/da-projects-theme/da-projects14.png" },
+                    { id: 29, memory_image: "src/assets/da-projects-theme/da-projects15.png" },
+                    { id: 30, memory_image: "src/assets/da-projects-theme/da-projects15.png" },
+                    { id: 31, memory_image: "src/assets/da-projects-theme/da-projects16.png" },
+                    { id: 32, memory_image: "src/assets/da-projects-theme/da-projects16.png" },
+                    { id: 33, memory_image: "src/assets/da-projects-theme/da-projects17.png" },
+                    { id: 34, memory_image: "src/assets/da-projects-theme/da-projects17.png" },
+                    { id: 35, memory_image: "src/assets/da-projects-theme/da-projects18.png" },
+                    { id: 36, memory_image: "src/assets/da-projects-theme/da-projects18.png" }
                 ];
             }
 
@@ -236,6 +239,13 @@ function init() {
                     { id: 15, memory_image: "src/assets/food-themes/food8.png" },
                     { id: 16, memory_image: "src/assets/food-themes/food8.png" },
                 ];
+            }
+
+            if (selectedSize === "16") {
+                memorycards = memorycards.slice(0, 16);
+            }
+            else if (selectedSize === "24") {
+                memorycards = memorycards.slice(0, 24);
             }
 
 
