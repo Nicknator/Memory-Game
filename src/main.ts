@@ -1,4 +1,5 @@
 import './styles/main.scss';
+import { CODE_VIBES_CARDS, DA_PROJECTS_CARDS, FOOD_CARDS } from './cards-data';
 
 type GameTheme = 'code' | 'gaming' | 'projects' | 'foods';
 type PlayerColor = 'blue' | 'orange';
@@ -91,15 +92,12 @@ function init() {
     }
 
     updateLiveDisplays();
-
     settingsForm?.addEventListener('change', updateLiveDisplays);
-
     startGameBtn();
 
     function startGameBtn() {
 
         btnStartGame?.addEventListener('click', () => {
-
             if (settingsForm) {
                 const data = new FormData(settingsForm);
                 setupGameFromSettings(data);
@@ -133,113 +131,24 @@ function init() {
             const data = new FormData(settingsForm as HTMLFormElement);
             const selectedTheme = data.get('theme-choice') as string;
 
+            // So sieht dieser Bereich in deiner Hauptdatei danach aus:
+
             let memorycards: Memory[] = [];
             let backfaceImagePath: string = "src/assets/game-page/card-backface1.png";
 
             if (selectedTheme === "Code vibes theme") {
                 backfaceImagePath = "src/assets/game-page/card-backface1.png";
-                memorycards = [
-                    { id: 1, memory_image: "src/assets/code-vibes-themes/code-vibes1.png" },
-                    { id: 2, memory_image: "src/assets/code-vibes-themes/code-vibes1.png" },
-                    { id: 3, memory_image: "src/assets/code-vibes-themes/code-vibes2.png" },
-                    { id: 4, memory_image: "src/assets/code-vibes-themes/code-vibes2.png" },
-                    { id: 5, memory_image: "src/assets/code-vibes-themes/code-vibes3.png" },
-                    { id: 6, memory_image: "src/assets/code-vibes-themes/code-vibes3.png" },
-                    { id: 7, memory_image: "src/assets/code-vibes-themes/code-vibes4.png" },
-                    { id: 8, memory_image: "src/assets/code-vibes-themes/code-vibes4.png" },
-                    { id: 9, memory_image: "src/assets/code-vibes-themes/code-vibes5.png" },
-                    { id: 10, memory_image: "src/assets/code-vibes-themes/code-vibes5.png" },
-                    { id: 11, memory_image: "src/assets/code-vibes-themes/code-vibes6.png" },
-                    { id: 12, memory_image: "src/assets/code-vibes-themes/code-vibes6.png" },
-                    { id: 13, memory_image: "src/assets/code-vibes-themes/code-vibes7.png" },
-                    { id: 14, memory_image: "src/assets/code-vibes-themes/code-vibes7.png" },
-                    { id: 15, memory_image: "src/assets/code-vibes-themes/code-vibes8.png" },
-                    { id: 16, memory_image: "src/assets/code-vibes-themes/code-vibes8.png" },
-                    { id: 17, memory_image: "src/assets/code-vibes-themes/code-vibes9.png" },
-                    { id: 18, memory_image: "src/assets/code-vibes-themes/code-vibes9.png" },
-                    { id: 19, memory_image: "src/assets/code-vibes-themes/code-vibes10.png" },
-                    { id: 20, memory_image: "src/assets/code-vibes-themes/code-vibes10.png" },
-                    { id: 21, memory_image: "src/assets/code-vibes-themes/code-vibes11.png" },
-                    { id: 22, memory_image: "src/assets/code-vibes-themes/code-vibes11.png" },
-                    { id: 23, memory_image: "src/assets/code-vibes-themes/code-vibes12.png" },
-                    { id: 24, memory_image: "src/assets/code-vibes-themes/code-vibes12.png" },
-                    { id: 25, memory_image: "src/assets/code-vibes-themes/code-vibes13.png" },
-                    { id: 26, memory_image: "src/assets/code-vibes-themes/code-vibes13.png" },
-                    { id: 27, memory_image: "src/assets/code-vibes-themes/code-vibes14.png" },
-                    { id: 28, memory_image: "src/assets/code-vibes-themes/code-vibes14.png" },
-                    { id: 29, memory_image: "src/assets/code-vibes-themes/code-vibes15.png" },
-                    { id: 30, memory_image: "src/assets/code-vibes-themes/code-vibes15.png" },
-                    { id: 31, memory_image: "src/assets/code-vibes-themes/code-vibes16.png" },
-                    { id: 32, memory_image: "src/assets/code-vibes-themes/code-vibes16.png" },
-                    { id: 33, memory_image: "src/assets/code-vibes-themes/code-vibes17.png" },
-                    { id: 34, memory_image: "src/assets/code-vibes-themes/code-vibes17.png" },
-                    { id: 35, memory_image: "src/assets/code-vibes-themes/code-vibes18.png" },
-                    { id: 36, memory_image: "src/assets/code-vibes-themes/code-vibes18.png" }
-                ];
+                memorycards = [...CODE_VIBES_CARDS]; // Blitzschnell & sauber!
             }
             else if (selectedTheme === "DA Projects theme") {
                 backfaceImagePath = "src/assets/game-page/card-backface2.png";
-                memorycards = [
-                    { id: 1, memory_image: "src/assets/da-projects-theme/da-projects1.png" },
-                    { id: 2, memory_image: "src/assets/da-projects-theme/da-projects1.png" },
-                    { id: 3, memory_image: "src/assets/da-projects-theme/da-projects2.png" },
-                    { id: 4, memory_image: "src/assets/da-projects-theme/da-projects2.png" },
-                    { id: 5, memory_image: "src/assets/da-projects-theme/da-projects3.png" },
-                    { id: 6, memory_image: "src/assets/da-projects-theme/da-projects3.png" },
-                    { id: 7, memory_image: "src/assets/da-projects-theme/da-projects4.png" },
-                    { id: 8, memory_image: "src/assets/da-projects-theme/da-projects4.png" },
-                    { id: 9, memory_image: "src/assets/da-projects-theme/da-projects5.png" },
-                    { id: 10, memory_image: "src/assets/da-projects-theme/da-projects5.png" },
-                    { id: 11, memory_image: "src/assets/da-projects-theme/da-projects6.png" },
-                    { id: 12, memory_image: "src/assets/da-projects-theme/da-projects6.png" },
-                    { id: 13, memory_image: "src/assets/da-projects-theme/da-projects7.png" },
-                    { id: 14, memory_image: "src/assets/da-projects-theme/da-projects7.png" },
-                    { id: 15, memory_image: "src/assets/da-projects-theme/da-projects8.png" },
-                    { id: 16, memory_image: "src/assets/da-projects-theme/da-projects8.png" },
-                    { id: 17, memory_image: "src/assets/da-projects-theme/da-projects9.png" },
-                    { id: 18, memory_image: "src/assets/da-projects-theme/da-projects9.png" },
-                    { id: 19, memory_image: "src/assets/da-projects-theme/da-projects10.png" },
-                    { id: 20, memory_image: "src/assets/da-projects-theme/da-projects10.png" },
-                    { id: 21, memory_image: "src/assets/da-projects-theme/da-projects11.png" },
-                    { id: 22, memory_image: "src/assets/da-projects-theme/da-projects11.png" },
-                    { id: 23, memory_image: "src/assets/da-projects-theme/da-projects12.png" },
-                    { id: 24, memory_image: "src/assets/da-projects-theme/da-projects12.png" },
-                    { id: 25, memory_image: "src/assets/da-projects-theme/da-projects13.png" },
-                    { id: 26, memory_image: "src/assets/da-projects-theme/da-projects13.png" },
-                    { id: 27, memory_image: "src/assets/da-projects-theme/da-projects14.png" },
-                    { id: 28, memory_image: "src/assets/da-projects-theme/da-projects14.png" },
-                    { id: 29, memory_image: "src/assets/da-projects-theme/da-projects15.png" },
-                    { id: 30, memory_image: "src/assets/da-projects-theme/da-projects15.png" },
-                    { id: 31, memory_image: "src/assets/da-projects-theme/da-projects16.png" },
-                    { id: 32, memory_image: "src/assets/da-projects-theme/da-projects16.png" },
-                    { id: 33, memory_image: "src/assets/da-projects-theme/da-projects17.png" },
-                    { id: 34, memory_image: "src/assets/da-projects-theme/da-projects17.png" },
-                    { id: 35, memory_image: "src/assets/da-projects-theme/da-projects18.png" },
-                    { id: 36, memory_image: "src/assets/da-projects-theme/da-projects18.png" }
-                ];
+                memorycards = [...DA_PROJECTS_CARDS];
             }
-
             else if (selectedTheme === "Foods theme") {
                 backfaceImagePath = "src/assets/game-page/card-backface3.png";
-                memorycards = [
-                    { id: 1, memory_image: "src/assets/food-themes/food1.png" },
-                    { id: 2, memory_image: "src/assets/food-themes/food1.png" },
-                    { id: 3, memory_image: "src/assets/food-themes/food2.png" },
-                    { id: 4, memory_image: "src/assets/food-themes/food2.png" },
-                    { id: 5, memory_image: "src/assets/food-themes/food3.png" },
-                    { id: 6, memory_image: "src/assets/food-themes/food3.png" },
-                    { id: 7, memory_image: "src/assets/food-themes/food4.png" },
-                    { id: 8, memory_image: "src/assets/food-themes/food4.png" },
-                    { id: 9, memory_image: "src/assets/food-themes/food5.png" },
-                    { id: 10, memory_image: "src/assets/food-themes/food5.png" },
-                    { id: 11, memory_image: "src/assets/food-themes/food6.png" },
-                    { id: 12, memory_image: "src/assets/food-themes/food6.png" },
-                    { id: 13, memory_image: "src/assets/food-themes/food7.png" },
-                    { id: 14, memory_image: "src/assets/food-themes/food7.png" },
-                    { id: 15, memory_image: "src/assets/food-themes/food8.png" },
-                    { id: 16, memory_image: "src/assets/food-themes/food8.png" },
-                ];
+                memorycards = [...FOOD_CARDS];
             }
+
 
             if (selectedSize === "16") {
                 memorycards = memorycards.slice(0, 16);
@@ -448,5 +357,3 @@ function init() {
 
 
 }
-
-
