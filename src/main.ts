@@ -1,6 +1,9 @@
 import './styles/main.scss';
 import { CODE_VIBES_CARDS, DA_PROJECTS_CARDS, FOOD_CARDS } from './cards-data';
 import { cardTemplate } from './template';
+import { renderGameBoard } from './ui-manager';
+
+
 type GameTheme = 'code' | 'gaming' | 'projects' | 'foods';
 type PlayerColor = 'blue' | 'orange';
 type BoardSize = '16' | '24' | '36';
@@ -71,7 +74,7 @@ function setupUIEventListeners() {
         resetGameState();
     });
 
-   // Start button: Initializes the game
+    // Start button: Initializes the game
     document.getElementById('btnStartGame')?.addEventListener('click', () => {
         if (!settingsForm) return;
 
@@ -104,7 +107,7 @@ function setupUIEventListeners() {
         settingsScreen?.classList.replace('screen-visible', 'screen-hidden');
         gameScreen?.classList.replace('screen-hidden', 'screen-visible');
 
-        renderGameBoard(memorycards, backfaceImagePath);
+        renderGameBoard(memorycards, backfaceImagePath, handleCardClick);
     });
 }
 
@@ -146,27 +149,16 @@ function updateLiveDisplays() {
     }
 }
 
-function renderGameBoard(memorycards: Memory[], backfaceImagePath: string) {
-    const showCards = document.getElementById('game-bord');
-    if (!showCards) return;
-    showCards.innerHTML = '';
-
-    memorycards.forEach(card => {
-        showCards.innerHTML += cardTemplate(card,backfaceImagePath);
-    });
-
-    // Uses .onclick so that the old click handler is overwritten each time a game starts
-    showCards.onclick = (e) => {
-        updateHUD();
-        const card = (e.target as HTMLElement).closest(".card") as HTMLButtonElement;
-        if (!card || lockBoard || card.classList.contains("is-flipped") || flippedCards.includes(card)) {
-            return;
-        }
-        flipCard(card);
-        if (flippedCards.length === 2) {
-            checkCardsMatch();
-        }
-    };
+function handleCardClick(e: MouseEvent): void {
+    updateHUD();
+    const card = (e.target as HTMLElement).closest('.card') as HTMLButtonElement;
+    if (!card || lockBoard || card.classList.contains('is-flipped') || flippedCards.includes(card)) {
+        return;
+    }
+    flipCard(card);
+    if (flippedCards.length === 2) {
+        checkCardsMatch();
+    }
 }
 
 function flipCard(card: HTMLButtonElement) {
