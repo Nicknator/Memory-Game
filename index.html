@@ -13,8 +13,6 @@
 
     <section id="homescreen" class="screen-visible">
 
-
-
         <div class="background-icon">
         </div>
         <img src="/src/assets/stadia_controller2.png" alt="Controller2 Icon" class="btn-play-icon2">
@@ -33,15 +31,14 @@
         </button>
     </section>
 
-
     <section id="settings-screen" class="screen-hidden">
-
         <div class="settings-container">
 
             <div class="settings-header">
                 <h2 class="settings-title">Settings</h2>
-                <div class="header-line"></div>
+                <div class="header-line indicator-line"></div>
             </div>
+
 
             <div class="settings-content">
                 <form id="settings-form" class="settings-options">
@@ -49,23 +46,37 @@
                         <div class="setting-group">
                             <div class="group-header">
                                 <img src="/src/assets/setting-page/palette.png" alt="Palette Icon">
-                                <h3><span> </span>Game themes</h3>
+                                <h3 class="themeTitelSet"><span> </span>Game themes</h3>
                             </div>
                             <div class="radio-options">
-                                <label><input type="radio" name="theme-choice" value="Code vibes theme" checked> Code
-                                    vibes theme</label>
-                                <label><input type="radio" name="theme-choice" value="Gaming theme"> Gaming
-                                    theme</label>
-                                <label><input type="radio" name="theme-choice" value="DA Projects theme"> DA Projects
-                                    theme</label>
-                                <label><input type="radio" name="theme-choice" value="Foods theme"> Foods theme</label>
+                                <label>
+                                    <input type="radio" name="theme-choice" value="Code vibes theme" checked>
+                                    Code vibes theme
+                                    <div class="theme-line indicator-line"></div>
+                                </label>
+                                <label>
+                                    <input type="radio" name="theme-choice" value="Gaming theme">
+                                    Gaming theme
+                                    <div class="theme-line indicator-line"></div>
+                                </label>
+                                <label>
+                                    <input type="radio" name="theme-choice" value="DA Projects theme">
+                                    DA Projects
+                                    <div class="theme-line indicator-line"></div>
+                                </label>
+                                <label>
+                                    <input type="radio" name="theme-choice" value="Foods theme">
+                                    Foods theme
+                                    <div class="theme-line indicator-line"></div>
+                                </label>
                             </div>
+
                         </div>
 
                         <div class="setting-group">
                             <div class="group-header">
                                 <img src="/src/assets/setting-page/chess_pawn.png" alt="Chess Pawn Icon">
-                                <h3><span> </span> Choose player</h3>
+                                <h3 class="themeTitelSet"><span> </span> Choose player</h3>
                             </div>
                             <div class="radio-options">
                                 <label><input type="radio" name="player-choice" value="Blue" checked> Blue</label>
@@ -76,7 +87,7 @@
                         <div class="setting-group">
                             <div class="group-header">
                                 <img src="/src/assets/setting-page/style.png" alt="Style Icon">
-                                <h3><span> </span> Board size
+                                <h3 class="themeTitelSet"><span> </span> Board size
                                 </h3>
                             </div>
                             <div class="radio-options">
@@ -85,25 +96,33 @@
                                 <label><input type="radio" name="size-choice" value="36"> 36 cards</label>
                             </div>
                         </div>
-
-
                     </div>
-
                 </form>
 
-                <div>
+                <div class="preview-sidebar">
                     <div id="theme-preview-container" class="visual_Theme_Set"></div>
 
-
                     <div class="selectionsBtnArea">
-                        <p><span id="theme-display"></span></p>
-                        <div>/</div>
-                        <p><span id="player-color"></span> Player</p>
-                        <div>/</div>
-                        <p>Board-<span id="size-display"></span></p>
-                        <button id="btnStartGame">start</button>
+                        <div class="selection-text-box">
+                            <p class="theme-info-text"><span id="theme-display"></span></p>
+                        </div>
+
+                        <div class="selection-slash"></div>
+
+                        <p class="selection-text-box"><span id="player-color"></span> Player</p>
+
+                        <div class="selection-slash"></div>
+
+                        <p class="selection-text-box">Board-<span id="size-display"></span></p>
+
+                        <button id="btnStartGame">
+                            <img src="src/assets/setting-page/smart_display1.png" alt="Play Icon" class="btn-play-icon">
+                            start
+                        </button>
                     </div>
+
                 </div>
+
             </div>
         </div>
         </div>
@@ -122,7 +141,7 @@
 
 
             <button id="btn-exit-game" class="exit-btn">Exit Game</button>
-             
+
             <div id="exit-modal" class="modal-overlay hidden">
                 <div class="modal-box">
                     <h2>Are you sure you want to quit the game?</h2>
@@ -140,9 +159,9 @@
 
 
     <div id="game-over-screen" class="screen-hidden">
-        <h1 id="game-over-title">Spiel vorbei!</h1>
-        <p id="game-over-text">Gewinner: </p>
-        <button id="btn-back-to-settings" type="button">Nochmal spielen</button>
+        <h2 id="game-over-title">Spiel vorbei!</h1>
+            <p id="game-over-text">Gewinner: </p>
+            <button id="btn-back-to-settings" type="button">Nochmal spielen</button>
     </div>
 
 

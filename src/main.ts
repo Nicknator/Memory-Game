@@ -33,7 +33,9 @@ function init(): void {
     updateLiveDisplays();
     settingsForm?.addEventListener('change', updateLiveDisplays);
     setupUIEventListeners();
+    themeSwitcher(); 
 }
+
 
 /**
  * Binds click events to global navigation buttons, modal toggles, and screen changers.
@@ -249,4 +251,18 @@ function checkGameOver(): void {
         }
         changeScreen('game-screen', 'game-over-screen');
     }
+}
+
+function themeSwitcher(){
+const themeLabels = document.querySelectorAll('.radio-options label');
+themeLabels.forEach(label => {
+    label.addEventListener('mouseenter', () => {
+        const input = label.querySelector('input') as HTMLInputElement;
+        if (input) {
+            input.checked = true; //
+            updateLiveDisplays(); 
+        }
+    });
+});
+
 }
