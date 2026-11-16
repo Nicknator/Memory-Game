@@ -33,7 +33,7 @@ function init(): void {
     updateLiveDisplays();
     settingsForm?.addEventListener('change', updateLiveDisplays);
     setupUIEventListeners();
-    themeSwitcher(); 
+    themeSwitcher();
 }
 
 
@@ -68,6 +68,17 @@ function handleGameStart(): void {
     setupGameFromSettings(data);
 
     const selectedTheme = data.get('theme-choice') as string;
+
+    document.body.classList.remove('theme-code', 'theme-projects');
+
+    if (selectedTheme === 'Code vibes theme') {
+        document.body.classList.add('theme-code');
+    } else if (selectedTheme === 'DA Projects theme') {
+        document.body.classList.add('theme-projects');
+    }
+    else if (selectedTheme === 'Foods theme') {
+        document.body.classList.add('theme-foods');
+    }
     const config = prepareCards(selectedTheme);
 
     changeScreen('settings-screen', 'game-screen');
@@ -85,14 +96,20 @@ function prepareCards(theme: string): { cards: MemoryCard[]; backface: string } 
     let backface = 'src/assets/game-page/card-backface1.png';
     let cards: MemoryCard[] = [];
 
-    if (theme === 'Code vibes theme') cards = [...CODE_VIBES_CARDS];
-    else if (theme === 'DA Projects theme') {
+    document.body.classList.remove('theme-code', 'theme-projects', 'theme-foods', 'theme-gaming');
+    if (theme === 'Code vibes theme') {
+        document.body.classList.add('theme-code');
+        cards = [...CODE_VIBES_CARDS];
+    } else if (theme === 'DA Projects theme') {
+        document.body.classList.add('theme-projects');
         backface = 'src/assets/game-page/card-backface2.png';
         cards = [...DA_PROJECTS_CARDS];
     } else if (theme === 'Foods theme') {
+        document.body.classList.add('theme-foods');
         backface = 'src/assets/game-page/card-backface3.png';
         cards = [...FOOD_CARDS];
     }
+
 
     const limit = parseInt(selectedSize);
     cards = cards.slice(0, limit);
@@ -203,6 +220,7 @@ function updateHUD(): void {
     if (scoreOrangeDisplay) scoreOrangeDisplay.textContent = scores.orange.toString();
     if (playerDisplay && activePlayer) {
         playerDisplay.textContent = activePlayer.charAt(0).toUpperCase() + activePlayer.slice(1);
+        playerDisplay.className = activePlayer;
     }
 }
 
@@ -253,16 +271,16 @@ function checkGameOver(): void {
     }
 }
 
-function themeSwitcher(){
-const themeLabels = document.querySelectorAll('.radio-options label');
-themeLabels.forEach(label => {
-    label.addEventListener('mouseenter', () => {
-        const input = label.querySelector('input') as HTMLInputElement;
-        if (input) {
-            input.checked = true; //
-            updateLiveDisplays(); 
-        }
+function themeSwitcher() {
+    const themeLabels = document.querySelectorAll('.radio-options label');
+    themeLabels.forEach(label => {
+        label.addEventListener('mouseenter', () => {
+            const input = label.querySelector('input') as HTMLInputElement;
+            if (input) {
+                input.checked = true; //
+                updateLiveDisplays();
+            }
+        });
     });
-});
 
 }
