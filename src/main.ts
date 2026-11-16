@@ -253,23 +253,16 @@ function checkGameOver(): void {
     const foundPaare = scores.blue + scores.orange;
 
     if (foundPaare === totalPaare) {
-        const gameOverScreen = document.getElementById('game-over-screen');
-        const winnerText = document.getElementById('game-over-text');
-        if (gameOverScreen && winnerText) {
-            gameOverScreen.classList.remove('blue', 'orange');
-            if (scores.blue > scores.orange) {
-                winnerText.textContent = 'Blau gewinnt das Spiel!';
-                gameOverScreen.classList.add('blue');
-            } else if (scores.orange > scores.blue) {
-                winnerText.textContent = 'Orange gewinnt das Spiel!';
-                gameOverScreen.classList.add('orange');
-            } else {
-                winnerText.textContent = 'Unentschieden!';
-            }
-        }
+        const finalBlue = document.getElementById('final-score-blue');
+        const finalOrange = document.getElementById('final-score-orange');
+
+        if (finalBlue) finalBlue.textContent = scores.blue.toString();
+        if (finalOrange) finalOrange.textContent = scores.orange.toString();
+
         changeScreen('game-screen', 'game-over-screen');
     }
 }
+
 
 function themeSwitcher() {
     const themeLabels = document.querySelectorAll('.radio-options label');

@@ -128,7 +128,7 @@
 
         <div class="game-header">
             <div class="score-display">
-                <div class="score-box blue">Blue    <span id="score-blue-val">0</span></div>
+                <div class="score-box blue">Blue <span id="score-blue-val">0</span></div>
                 <div class="score-box orange">Orange <span id="score-orange-val">0</span></div>
             </div>
             <div class="current-player-status">
@@ -159,9 +159,14 @@
 
 
     <div id="game-over-screen" class="screen-hidden">
-        <h2 id="game-over-title">Spiel vorbei!</h1>
-            <p id="game-over-text">Gewinner: </p>
-            <button id="btn-back-to-settings" type="button">Nochmal spielen</button>
+        <h1 class="game-over-title">Game over</h1>
+
+        <p class="final-score-label">Final score</p>
+
+        <div class="final-score-box">
+            <div class="score-box blue">Blue <span id="final-score-blue">0</span></div>
+            <div class="score-box orange">Orange <span id="final-score-orange">0</span></div>
+        </div>
     </div>
 
 
