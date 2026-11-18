@@ -159,15 +159,31 @@
 
 
     <div id="game-over-screen" class="screen-hidden">
+    
+    <!-- Teil 1: Wird zuerst 3 Sekunden lang gezeigt -->
+    <div id="game-over-summary" class="game-over-step">
         <h1 class="game-over-title">Game over</h1>
-
         <p class="final-score-label">Final score</p>
-
         <div class="final-score-box">
             <div class="score-box blue">Blue <span id="final-score-blue">0</span></div>
             <div class="score-box orange">Orange <span id="final-score-orange">0</span></div>
         </div>
     </div>
+
+    <!-- Teil 2: Erscheint nach 3 Sekunden -->
+    <div id="winner-screen" class="game-over-step hidden">
+        <img src="src/assets/game-over-page/Confetti-4.png" alt="Confetti" id="confetti-img" class="confetti-img">
+        
+        <p id="winner-subtitle" class="winner-subtitle">The winner is</p>
+        <h2 id="winner-title" class="winner-title orange">ORANGE PLAYER</h2>
+        
+        <img src="src/assets/game-over-page/chess_pawn.png" alt="Winner Icon" id="winner-icon" class="winner-icon">
+        
+        <button id="btn-back-to-start" class="back-start-btn" type="button">Back to start</button>
+    </div>
+
+</div>
+
 
 
 

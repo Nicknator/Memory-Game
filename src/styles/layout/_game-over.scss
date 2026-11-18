@@ -1,14 +1,14 @@
 #game-over-screen {
-       position: fixed; // Löst den Screen vom Fluss und verhindert das Scrollen
-    inset: 0;        // Setzt top, right, bottom, left auf 0
+    position: fixed;
+    inset: 0;
     width: 100vw;
     height: 100vh;
     background-color: #2c2e30;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start; // Richtet den Inhalt weiter oben aus
-    padding-top: 15vh;           // Abstand von oben (ca. 15% der Bildschirmhöhe)
+    justify-content: flex-start;
+    padding-top: 15vh;
     box-sizing: border-box;
     font-family: 'Almarai', sans-serif;
     z-index: 100;
@@ -17,17 +17,26 @@
         display: none;
     }
 
-    // Großer "Game over" Schriftzug mit dem 3D-Schatten aus dem Bild
+    .game-over-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+
+        &.hidden {
+            display: none;
+        }
+    }
+
     .game-over-title {
         font-size: 96px;
         font-weight: 800;
-        color: #5ee6cb; // Helles Mintgrün
-        text-shadow: 0 5px 0 #1f6b5c; // Dunklerer mintgrüner Schatten nach unten
+        color: #5ee6cb;
+        text-shadow: 0 5px 0 #1f6b5c;
         margin: 0 0 64px 0;
         letter-spacing: 1px;
     }
 
-    // "Final score" Überschrift darüber
     .final-score-label {
         font-size: 20px;
         font-weight: 700;
@@ -35,7 +44,6 @@
         margin: 0 0 16px 0;
     }
 
-    // Die halbtransparente Punkte-Box (wie dein Exit-Button im Code-Theme)
     .final-score-box {
         display: flex;
         align-items: center;
@@ -51,7 +59,6 @@
             align-items: center;
             gap: 8px;
 
-            // Deine spitzen Pfeil-Fähnchen aus dem Spiel-Header
             &::before {
                 content: "";
                 display: inline-block;
@@ -70,5 +77,162 @@
                 &::before { background-color: #e67e22; }
             }
         }
+    }
+
+    .confetti-img {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        max-width: 1000px;
+        pointer-events: none;
+
+        &.hidden {
+            display: none;
+        }
+    }
+
+    .winner-subtitle {
+        font-size: 22px;
+        font-weight: 700;
+        color: #ffffff;
+        margin: 40px 0 8px 0;
+    }
+
+    .winner-title {
+        font-size: 42px;
+        font-weight: 800;
+        margin: 0 0 32px 0;
+
+        &.orange { color: #e67e22; }
+        &.blue { color: #3ca2f4; }
+        &.draw { color: #4DD5BC; }
+    }
+
+    .winner-icon {
+        width: 130px;
+        height: auto;
+        margin-bottom: 40px;
+    }
+
+    .back-start-btn {
+        padding: 14px 28px;
+        background-color: rgba(#86E9D6, 0.2);
+        border: 1px solid #4DD5BC;
+        border-radius: 6px;
+        color: #ffffff;
+        font-family: 'Almarai', sans-serif;
+        font-size: 18px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.15s ease;
+
+        &:hover {
+            background-color: rgba(#86E9D6, 0.35);
+            transform: scale(1.02);
+        }
+
+        &:active {
+            transform: scale(0.98);
+        }
+    }
+}
+
+body.theme-projects #game-over-screen {
+    background-color: #336b8e;
+
+    .game-over-title {
+        color: #e85a4f;
+        text-shadow: none;
+        text-transform: uppercase;
+        font-size: 72px;
+    }
+
+    .final-score-box {
+        background-color: #ffffff;
+
+        .score-box {
+            &::before {
+                clip-path: none;
+                background-color: transparent;
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+                width: 24px;
+                height: 24px;
+            }
+
+            &.blue::before {
+                background-image: url('../../assets/game-over-page/Player-blue1.png');
+            }
+
+            &.orange::before {
+                background-image: url('../../assets/game-over-page/Player-orange2.png');
+            }
+        }
+    }
+
+    .confetti-img { display: none; }
+
+    .winner-title {
+        text-transform: none;
+        &.draw { color: #e85a4f; text-transform: uppercase; }
+    }
+
+    .back-start-btn {
+        background-color: #ffffff;
+        color: #336b8e;
+        border: none;
+        padding: 10px 24px;
+    }
+}
+
+
+body.theme-foods #game-over-screen {
+    background-color: #e6832e; 
+    font-family: 'Klee One', cursive, sans-serif;
+
+    &:has(#winner-screen:not(.hidden)) {
+        background-color: #f8f8f8;
+    }
+
+    .game-over-title {
+        color: #ffffff;
+        text-shadow: none;
+        text-transform: uppercase;
+        font-weight: 400;
+        font-size: 72px;
+    }
+
+    .final-score-box {
+        background-color: #ffffff;
+        .score-box::before { clip-path: none; background-image: url('/src/assets/game-page/chess_pawn_blue.png'); }
+        .score-box.orange::before { background-image: url('/src/assets/game-page/chess_pawn_orange.png'); }
+    }
+
+    .confetti-img { display: none; }
+
+    .winner-subtitle { color: #a45212; font-weight: 400; }
+
+    .winner-title {
+        font-weight: 400;
+        text-transform: none;
+        &.orange, &.draw { color: #e6832e; }
+        &.blue { color: #3ca2f4; }
+        &.draw { text-transform: uppercase; }
+    }
+
+    // Der beige Kasten hinter der Figur oder Waage
+    .winner-icon {
+        background-color: #f4eae1;
+        padding: 24px;
+        border-radius: 16px;
+    }
+
+    .back-start-btn {
+        background-color: #f3832d;
+        color: #ffffff;
+        border: none;
+        font-family: 'Klee One', cursive, sans-serif;
+        padding: 10px 24px;
     }
 }

@@ -45,17 +45,18 @@ function setupUIEventListeners(): void {
     document.getElementById('btn-exit-game')?.addEventListener('click', () => toggleModal('exit-modal', true));
     document.getElementById('btn-back-to-game')?.addEventListener('click', () => toggleModal('exit-modal', false));
     document.getElementById('btn-confirm-exit')?.addEventListener('click', () => {
-        toggleModal('exit-modal', false);
-        changeScreen('game-screen', 'settings-screen');
+        toggleModal('exit-modal', false); changeScreen('game-screen', 'settings-screen');
         const showCards = document.getElementById('game-bord');
         if (showCards) showCards.innerHTML = '';
     });
-    document.getElementById('btn-back-to-settings')?.addEventListener('click', () => {
+    document.querySelectorAll('#btn-back-to-settings, #btn-back-to-start').forEach(btn => btn.addEventListener('click', () => {
         changeScreen('game-over-screen', 'settings-screen');
+        document.body.classList.remove('theme-code', 'theme-projects', 'theme-foods');
         resetGameState();
-    });
+    }));
     document.getElementById('btnStartGame')?.addEventListener('click', () => handleGameStart());
 }
+
 
 /**
  * Handles the game-start process by reading form data, preparing the deck, and rendering the board.
@@ -63,14 +64,10 @@ function setupUIEventListeners(): void {
 function handleGameStart(): void {
     const settingsForm = document.getElementById('settings-form') as HTMLFormElement | null;
     if (!settingsForm) return;
-
     const data = new FormData(settingsForm);
     setupGameFromSettings(data);
-
     const selectedTheme = data.get('theme-choice') as string;
-
     document.body.classList.remove('theme-code', 'theme-projects');
-
     if (selectedTheme === 'Code vibes theme') {
         document.body.classList.add('theme-code');
     } else if (selectedTheme === 'DA Projects theme') {
@@ -80,7 +77,6 @@ function handleGameStart(): void {
         document.body.classList.add('theme-foods');
     }
     const config = prepareCards(selectedTheme);
-
     changeScreen('settings-screen', 'game-screen');
     renderGameBoard(config.cards, config.backface, handleCardClick);
 }
@@ -95,7 +91,6 @@ function handleGameStart(): void {
 function prepareCards(theme: string): { cards: MemoryCard[]; backface: string } {
     let backface = 'src/assets/game-page/card-backface1.png';
     let cards: MemoryCard[] = [];
-
     document.body.classList.remove('theme-code', 'theme-projects', 'theme-foods', 'theme-gaming');
     if (theme === 'Code vibes theme') {
         document.body.classList.add('theme-code');
@@ -109,12 +104,9 @@ function prepareCards(theme: string): { cards: MemoryCard[]; backface: string } 
         backface = 'src/assets/game-page/card-backface3.png';
         cards = [...FOOD_CARDS];
     }
-
-
     const limit = parseInt(selectedSize);
     cards = cards.slice(0, limit);
     shuffleArray(cards);
-
     return { cards, backface };
 }
 
@@ -253,15 +245,54 @@ function checkGameOver(): void {
     const foundPaare = scores.blue + scores.orange;
 
     if (foundPaare === totalPaare) {
+        const summary = document.getElementById('game-over-summary');
+        const winnerScreen = document.getElementById('winner-screen');
         const finalBlue = document.getElementById('final-score-blue');
         const finalOrange = document.getElementById('final-score-orange');
 
         if (finalBlue) finalBlue.textContent = scores.blue.toString();
         if (finalOrange) finalOrange.textContent = scores.orange.toString();
+        summary?.classList.remove('hidden');
+        winnerScreen?.classList.add('hidden');
 
         changeScreen('game-screen', 'game-over-screen');
+
+        setTimeout(() => {
+            summary?.classList.add('hidden');
+            winnerScreen?.classList.remove('hidden');
+            showWinnerResult();
+        }, 2000);
     }
 }
+
+
+function showWinnerResult(): void {
+    const isProjects = document.body.classList.contains('theme-projects');
+    if (scores.blue > scores.orange) {
+        const img = isProjects ? 'src/assets/game-over-page/Player-blue1.png' : 'src/assets/game-over-page/chess_pawn_blue-1.png';
+        applyWinnerView('The winner is', 'BLUE PLAYER', 'blue', img, true);
+    } else if (scores.orange > scores.blue) {
+        const img = isProjects ? 'src/assets/game-over-page/Player-orange2.png' : 'src/assets/game-over-page/chess_pawn_orange-2.png';
+        applyWinnerView('The winner is', 'ORANGE PLAYER', 'orange', img, true);
+    } else {
+        applyWinnerView("It's a", 'DRAW', 'draw', 'src/assets/game-over-page/Scale_Icon-3.png', false);
+    }
+}
+
+function applyWinnerView(sub: string, head: string, colorClass: string, imgSrc: string, showConfetti: boolean): void {
+    const subtitle = document.getElementById('winner-subtitle');
+    const title = document.getElementById('winner-title');
+    const icon = document.getElementById('winner-icon') as HTMLImageElement;
+    document.getElementById('confetti-img')?.classList.toggle('hidden', !showConfetti);
+    if (subtitle) subtitle.textContent = sub;
+    if (title) {
+        title.textContent = head;
+        title.className = `winner-title ${colorClass}`;
+    }
+    if (icon) icon.src = imgSrc;
+}
+
+
 
 
 function themeSwitcher() {
