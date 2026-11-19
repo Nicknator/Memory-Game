@@ -1,6 +1,10 @@
-$color-home: #303131;
-$color-playBtn:#F0EA6E;
-$color-text:white;
-$color-play_btn_text: #303131;
-$color-white: #FFFFFF;
-$color-settingbtn :#F6F6F6;
+// --- General & Accent Colors ---
+$color-white: #FFFFFF;         // Settings background & white elements
+$color-text: white;            // Default light text color (e.g. homescreen)
+$color-text-dark: #2b2b2b;     // Dark text (settings selection & start button)
+$color-playBtn: #F0EA6E;       // Primary yellow accent (buttons, slashes, indicators)
+$color-play_btn_text: #303131; // Dark text on yellow buttons & headings
+
+// --- Screen Backgrounds ---
+$color-home: #303131;          // Homescreen & Code theme background
+$color-settingbtn: #F6F6F6;    // Light gray background for settings selection box

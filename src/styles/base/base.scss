@@ -1,3 +1,7 @@
+body {
+    background-color: $color-home;
+    margin: 0;
+}
 #homescreen, #settings-screen, #game-screen{
     position: absolute; 
     top: 0;

@@ -1,0 +1,79 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+
+    &.hidden {
+        display: none;
+    }
+
+    .modal-box {
+        background-color: var(--modal-bg, #ffffff);
+        border-radius: var(--modal-radius, 4px);
+        padding: 56px 40px;
+        width: 100%;
+        max-width: 530px;
+        text-align: center;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        box-sizing: border-box;
+
+        h2 {
+            font-family: 'Almarai', sans-serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--modal-title-color, #2b2b2b);
+            line-height: 1.3;
+            margin: 0 0 40px 0;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+
+            button {
+                height: 54px;
+                padding: 0 32px;
+                font-family: 'Almarai', sans-serif;
+                font-size: 18px;
+                font-weight: 700;
+                cursor: pointer;
+                transition: all 0.15s ease;
+                border-radius: var(--modal-btn-radius, 4px);
+                box-shadow: var(--modal-btn-shadow, none);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-sizing: border-box;
+
+                &:hover {
+                    opacity: 0.9;
+                    transform: scale(1.02);
+                }
+
+                &:active {
+                    transform: scale(0.98);
+                }
+            }
+
+            .btn-filled {
+                background-color: var(--modal-btn-back-bg, #76d1bd);
+                color: var(--modal-btn-back-text, #ffffff);
+                border: none;
+            }
+
+            .btn-outline {
+                background-color: var(--modal-btn-exit-bg, #f3fbf9);
+                color: var(--modal-btn-exit-text, #76d1bd);
+                border: var(--modal-btn-exit-border, 2px solid #76d1bd);
+            }
+        }
+    }
+}
