@@ -1,10 +1,14 @@
-// cards-data.ts
-
+/**
+ * Structure for a single memory card item.
+ */
 export interface Memory {
     id: number;
     memory_image: string;
 }
 
+/**
+ * Card deck for the "Code Vibes" theme (18 pairs / 36 cards).
+ */
 export const CODE_VIBES_CARDS: Memory[] = [
     { id: 1, memory_image: "src/assets/code-vibes-themes/code-vibes1.png" },
     { id: 2, memory_image: "src/assets/code-vibes-themes/code-vibes1.png" },
@@ -44,6 +48,9 @@ export const CODE_VIBES_CARDS: Memory[] = [
     { id: 36, memory_image: "src/assets/code-vibes-themes/code-vibes18.png" }
 ];
 
+/**
+ * Card deck for the "DA Projects" theme (18 pairs / 36 cards).
+ */
 export const DA_PROJECTS_CARDS: Memory[] = [
     { id: 1, memory_image: "src/assets/da-projects-theme/da-projects1.png" },
     { id: 2, memory_image: "src/assets/da-projects-theme/da-projects1.png" },
@@ -83,6 +90,9 @@ export const DA_PROJECTS_CARDS: Memory[] = [
     { id: 36, memory_image: "src/assets/da-projects-theme/da-projects18.png" }
 ];
 
+/**
+ * Card deck for the "Foods" theme (18 pairs / 36 cards).
+ */
 export const FOOD_CARDS: Memory[] = [
     { id: 1, memory_image: "src/assets/food-themes/food1.png" },
     { id: 2, memory_image: "src/assets/food-themes/food1.png" },
@@ -100,4 +110,24 @@ export const FOOD_CARDS: Memory[] = [
     { id: 14, memory_image: "src/assets/food-themes/food7.png" },
     { id: 15, memory_image: "src/assets/food-themes/food8.png" },
     { id: 16, memory_image: "src/assets/food-themes/food8.png" },
+    { id: 17, memory_image: "src/assets/food-themes/food9.png" },
+    { id: 18, memory_image: "src/assets/food-themes/food9.png" },
+    { id: 19, memory_image: "src/assets/food-themes/food10.png" },
+    { id: 20, memory_image: "src/assets/food-themes/food10.png" },
+    { id: 21, memory_image: "src/assets/food-themes/food11.png" },
+    { id: 22, memory_image: "src/assets/food-themes/food11.png" },
+    { id: 23, memory_image: "src/assets/food-themes/food12.png" },
+    { id: 24, memory_image: "src/assets/food-themes/food12.png" },
+    { id: 25, memory_image: "src/assets/food-themes/food13.png" },
+    { id: 26, memory_image: "src/assets/food-themes/food13.png" },
+    { id: 27, memory_image: "src/assets/food-themes/food14.png" },
+    { id: 28, memory_image: "src/assets/food-themes/food14.png" },
+    { id: 29, memory_image: "src/assets/food-themes/food15.png" },
+    { id: 30, memory_image: "src/assets/food-themes/food15.png" },
+    { id: 31, memory_image: "src/assets/food-themes/food16.png" },
+    { id: 32, memory_image: "src/assets/food-themes/food16.png" },
+    { id: 33, memory_image: "src/assets/food-themes/food17.png" },
+    { id: 34, memory_image: "src/assets/food-themes/food17.png" },
+    { id: 35, memory_image: "src/assets/food-themes/food18.png" },
+    { id: 36, memory_image: "src/assets/food-themes/food18.png" },
 ];

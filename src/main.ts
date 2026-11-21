@@ -23,6 +23,13 @@ let lockBoard: boolean = false;
 let flippedCards: HTMLButtonElement[] = [];
 let selectedSize: string = '16';
 
+const THEME_PREVIEWS: Record<string, string> = {
+    'Code vibes theme': 'src/assets/setting-page/1.themes/Theme Visual.png',
+    'Gaming theme': 'src/assets/setting-page/1.themes/Property 1=gameing.png',
+    'DA Projects theme': 'src/assets/setting-page/1.themes/Property 1=DA projects.png',
+    'Foods theme': 'src/assets/setting-page/1.themes/Property 1=foods.png',
+};
+
 init();
 
 /**
@@ -35,7 +42,6 @@ function init(): void {
     setupUIEventListeners();
     themeSwitcher();
 }
-
 
 /**
  * Binds click events to global navigation buttons, modal toggles, and screen changers.
@@ -57,7 +63,6 @@ function setupUIEventListeners(): void {
     document.getElementById('btnStartGame')?.addEventListener('click', () => handleGameStart());
 }
 
-
 /**
  * Handles the game-start process by reading form data, preparing the deck, and rendering the board.
  */
@@ -68,14 +73,9 @@ function handleGameStart(): void {
     setupGameFromSettings(data);
     const selectedTheme = data.get('theme-choice') as string;
     document.body.classList.remove('theme-code', 'theme-projects');
-    if (selectedTheme === 'Code vibes theme') {
-        document.body.classList.add('theme-code');
-    } else if (selectedTheme === 'DA Projects theme') {
-        document.body.classList.add('theme-projects');
-    }
-    else if (selectedTheme === 'Foods theme') {
-        document.body.classList.add('theme-foods');
-    }
+    if (selectedTheme === 'Code vibes theme') { document.body.classList.add('theme-code'); }
+    else if (selectedTheme === 'DA Projects theme') { document.body.classList.add('theme-projects'); }
+    else if (selectedTheme === 'Foods theme') { document.body.classList.add('theme-foods'); }
     const config = prepareCards(selectedTheme);
     changeScreen('settings-screen', 'game-screen');
     renderGameBoard(config.cards, config.backface, handleCardClick);
@@ -92,18 +92,9 @@ function prepareCards(theme: string): { cards: MemoryCard[]; backface: string } 
     let backface = 'src/assets/game-page/card-backface1.png';
     let cards: MemoryCard[] = [];
     document.body.classList.remove('theme-code', 'theme-projects', 'theme-foods', 'theme-gaming');
-    if (theme === 'Code vibes theme') {
-        document.body.classList.add('theme-code');
-        cards = [...CODE_VIBES_CARDS];
-    } else if (theme === 'DA Projects theme') {
-        document.body.classList.add('theme-projects');
-        backface = 'src/assets/game-page/card-backface2.png';
-        cards = [...DA_PROJECTS_CARDS];
-    } else if (theme === 'Foods theme') {
-        document.body.classList.add('theme-foods');
-        backface = 'src/assets/game-page/card-backface3.png';
-        cards = [...FOOD_CARDS];
-    }
+    if (theme === 'Code vibes theme') { document.body.classList.add('theme-code'); cards = [...CODE_VIBES_CARDS]; }
+    else if (theme === 'DA Projects theme') { document.body.classList.add('theme-projects'); backface = 'src/assets/game-page/card-backface2.png'; cards = [...DA_PROJECTS_CARDS]; }
+    else if (theme === 'Foods theme') { document.body.classList.add('theme-foods'); backface = 'src/assets/game-page/card-backface3.png'; cards = [...FOOD_CARDS]; }
     const limit = parseInt(selectedSize);
     cards = cards.slice(0, limit);
     shuffleArray(cards);
@@ -122,15 +113,9 @@ function shuffleArray(array: MemoryCard[]): void {
 function handleCardClick(e: MouseEvent): void {
     updateHUD();
     const card = (e.target as HTMLElement).closest('.card') as HTMLButtonElement;
-
-    if (!card || lockBoard || card.classList.contains('is-flipped') || flippedCards.includes(card)) {
-        return;
-    }
-
+    if (!card || lockBoard || card.classList.contains('is-flipped') || flippedCards.includes(card)) { return; }
     flipCard(card);
-    if (flippedCards.length === 2) {
-        checkCardsMatch();
-    }
+    if (flippedCards.length === 2) { checkCardsMatch(); }
 }
 
 /** Visually flips a card over. */
@@ -145,60 +130,51 @@ function checkCardsMatch(): void {
     const card1 = flippedCards[0];
     const card2 = flippedCards[1];
     const isMatch = card1.dataset.image === card2.dataset.image;
-
-    if (isMatch) {
-        scores[activePlayer] += 1;
-        flippedCards = [];
-        lockBoard = false;
-        updateHUD();
-        checkGameOver();
-    } else {
+    if (isMatch) { scores[activePlayer] += 1; flippedCards = []; lockBoard = false; updateHUD(); checkGameOver(); }
+    else {
         setTimeout(() => {
             card1.classList.remove('is-flipped');
             card2.classList.remove('is-flipped');
-            flippedCards = [];
-            activePlayer = activePlayer === 'blue' ? 'orange' : 'blue';
-            lockBoard = false;
-            updateHUD();
+            flippedCards = []; activePlayer = activePlayer === 'blue' ? 'orange' : 'blue'; lockBoard = false; updateHUD();
         }, 2000);
     }
 }
 
-/** Updates the live preview data in the settings. */
+/** Updates all live preview displays in the settings. */
 function updateLiveDisplays(): void {
-    const settingsForm = document.getElementById('settings-form') as HTMLFormElement | null;
-    if (!settingsForm) return;
-    const data = new FormData(settingsForm);
-    const selectedTheme = data.get('theme-choice') as string;
-    const liveThemeDisplay = document.getElementById('theme-display');
-    const previewContainer = document.getElementById('theme-preview-container');
+    const form = document.getElementById('settings-form') as HTMLFormElement | null;
+    if (!form) return;
+    const data = new FormData(form);
+    updateThemePreview(data.get('theme-choice') as string);
+    updatePlayerPreview(data.get('player-choice') as string);
+    updateSizePreview(data.get('size-choice') as string);
+}
 
-    if (liveThemeDisplay && selectedTheme) {
-        liveThemeDisplay.textContent = selectedTheme.charAt(0).toUpperCase() + selectedTheme.slice(1);
+/** Updates the theme text and preview image. */
+function updateThemePreview(theme: string): void {
+    const textEl = document.getElementById('theme-display');
+    const imgBox = document.getElementById('theme-preview-container');
+    if (textEl && theme) textEl.textContent = theme.charAt(0).toUpperCase() + theme.slice(1);
+    if (imgBox && THEME_PREVIEWS[theme]) {
+        imgBox.innerHTML = `<img src="${THEME_PREVIEWS[theme]}" alt="${theme}" class="theme-preview-img">`;
     }
+}
 
-    if (previewContainer && selectedTheme) {
-        if (selectedTheme === 'Code vibes theme') {
-            previewContainer.innerHTML = `<img src="src/assets/setting-page/1.themes/Theme Visual.png" alt="Code Theme" class="theme-preview-img">`;
-        } else if (selectedTheme === 'Gaming theme') {
-            previewContainer.innerHTML = `<img src="src/assets/setting-page/1.themes/Property 1=gameing.png" alt="Gaming Theme" class="theme-preview-img">`;
-        } else if (selectedTheme === 'DA Projects theme') {
-            previewContainer.innerHTML = `<img src="src/assets/setting-page/1.themes/Property 1=DA projects.png" alt="Projects Theme" class="theme-preview-img">`;
-        } else if (selectedTheme === 'Foods theme') {
-            previewContainer.innerHTML = `<img src="src/assets/setting-page/1.themes/Property 1=foods.png" alt="Foods Theme" class="theme-preview-img">`;
-        }
+/** Updates the selected starting player text. */
+function updatePlayerPreview(player: string): void {
+    const playerEl = document.getElementById('player-color');
+    if (playerEl && player) {
+        playerEl.textContent = player.charAt(0).toUpperCase() + player.slice(1);
     }
+}
 
-    const selectedPlayer = data.get('player-choice') as string;
-    const livePlayerDisplay = document.getElementById('player-color');
-    if (livePlayerDisplay && selectedPlayer) {
-        livePlayerDisplay.textContent = selectedPlayer.charAt(0).toUpperCase() + selectedPlayer.slice(1);
-    }
-
-    selectedSize = data.get('size-choice') as string;
-    const liveSizeDisplay = document.getElementById('size-display');
-    if (liveSizeDisplay && selectedSize) {
-        liveSizeDisplay.textContent = `${selectedSize} Cards`;
+/** Updates the selected board size text. */
+function updateSizePreview(size: string | null): void {
+    if (!size) return; // Schützt den Standardwert, falls nichts ausgewählt wurde!
+    selectedSize = size;
+    const sizeEl = document.getElementById('size-display');
+    if (sizeEl) {
+        sizeEl.textContent = `${selectedSize} Cards`;
     }
 }
 
@@ -207,7 +183,6 @@ function updateHUD(): void {
     const scoreBlueDisplay = document.getElementById('score-blue-val');
     const scoreOrangeDisplay = document.getElementById('score-orange-val');
     const playerDisplay = document.getElementById('current-player-display');
-
     if (scoreBlueDisplay) scoreBlueDisplay.textContent = scores.blue.toString();
     if (scoreOrangeDisplay) scoreOrangeDisplay.textContent = scores.orange.toString();
     if (playerDisplay && activePlayer) {
@@ -223,7 +198,6 @@ function setupGameFromSettings(data: FormData): void {
         player: (data.get('player-choice') as string).toLowerCase() as PlayerColor,
         size: data.get('size-choice') as BoardSize
     };
-
     activePlayer = currentSettings.player;
     resetGameState();
 }
@@ -243,29 +217,19 @@ function resetGameState(): void {
 function checkGameOver(): void {
     const totalPaare = parseInt(selectedSize) / 2;
     const foundPaare = scores.blue + scores.orange;
-
     if (foundPaare === totalPaare) {
         const summary = document.getElementById('game-over-summary');
         const winnerScreen = document.getElementById('winner-screen');
         const finalBlue = document.getElementById('final-score-blue');
         const finalOrange = document.getElementById('final-score-orange');
-
         if (finalBlue) finalBlue.textContent = scores.blue.toString();
         if (finalOrange) finalOrange.textContent = scores.orange.toString();
-        summary?.classList.remove('hidden');
-        winnerScreen?.classList.add('hidden');
-
-        changeScreen('game-screen', 'game-over-screen');
-
-        setTimeout(() => {
-            summary?.classList.add('hidden');
-            winnerScreen?.classList.remove('hidden');
-            showWinnerResult();
-        }, 2000);
+        summary?.classList.remove('hidden'); winnerScreen?.classList.add('hidden'); changeScreen('game-screen', 'game-over-screen');
+        setTimeout(() => { summary?.classList.add('hidden'); winnerScreen?.classList.remove('hidden'); showWinnerResult(); }, 2000);
     }
 }
 
-
+/** Determines the match outcome and triggers the winner display. */
 function showWinnerResult(): void {
     const isProjects = document.body.classList.contains('theme-projects');
     if (scores.blue > scores.orange) {
@@ -279,6 +243,7 @@ function showWinnerResult(): void {
     }
 }
 
+/** Updates the winner screen elements with the result details. */
 function applyWinnerView(sub: string, head: string, colorClass: string, imgSrc: string, showConfetti: boolean): void {
     const subtitle = document.getElementById('winner-subtitle');
     const title = document.getElementById('winner-title');
@@ -292,19 +257,17 @@ function applyWinnerView(sub: string, head: string, colorClass: string, imgSrc: 
     if (icon) icon.src = imgSrc;
 }
 
-
-
-
-function themeSwitcher() {
+/** Enables live theme preview updates when hovering over option labels. */
+function themeSwitcher(): void {
     const themeLabels = document.querySelectorAll('.radio-options label');
     themeLabels.forEach(label => {
         label.addEventListener('mouseenter', () => {
             const input = label.querySelector('input') as HTMLInputElement;
             if (input) {
-                input.checked = true; //
+                input.checked = true;
                 updateLiveDisplays();
             }
         });
     });
-
 }
+

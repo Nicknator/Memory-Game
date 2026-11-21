@@ -1,5 +1,5 @@
 .indicator-line {
-    background-color: #F0EA6E;
+    background-color: #{$color-playBtn};
     position: relative;
     display: inline-block;
 
@@ -10,7 +10,7 @@
         top: 50%;
         width: 16px;
         height: 16px;
-        background-color: #F0EA6E;
+        background-color: #{$color-playBtn};
         transform: translate(-50%, -50%) rotate(45deg);
     }
 }

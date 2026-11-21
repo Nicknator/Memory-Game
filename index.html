@@ -125,7 +125,6 @@
     </section>
 
     <section id="game-screen" class="screen-hidden">
-
         <div class="game-header">
             <div class="score-display">
                 <div class="score-box blue">Blue <span id="score-blue-val">0</span></div>
@@ -134,58 +133,42 @@
             <div class="current-player-status">
                 Current player: <span id="current-player-display" class="indicator-blue ">0</span>
             </div>
-
-
             <button id="btn-exit-game" class="exit-btn">
                 <img src="src/assets/game-page/move_item.png" alt="Exit" class="btn-exit-icon">
                 Exit game
             </button>
 
-
             <div id="exit-modal" class="modal-overlay hidden">
                 <div class="modal-box">
                     <h2>Are you sure you want to quit the game?</h2>
-
                     <div class="modal-buttons">
                         <button id="btn-back-to-game" class="btn-filled">Back to game</button>
                         <button id="btn-confirm-exit" class="btn-outline">Exit game</button>
                     </div>
                 </div>
             </div>
-
         </div>
         <div id="game-bord" class="game-bord"></div>
     </section>
 
-
     <div id="game-over-screen" class="screen-hidden">
-    
-    <!-- Teil 1: Wird zuerst 3 Sekunden lang gezeigt -->
-    <div id="game-over-summary" class="game-over-step">
-        <h1 class="game-over-title">Game over</h1>
-        <p class="final-score-label">Final score</p>
-        <div class="final-score-box">
-            <div class="score-box blue">Blue <span id="final-score-blue">0</span></div>
-            <div class="score-box orange">Orange <span id="final-score-orange">0</span></div>
+        <div id="game-over-summary" class="game-over-step">
+            <h1 class="game-over-title">Game over</h1>
+            <p class="final-score-label">Final score</p>
+            <div class="final-score-box">
+                <div class="score-box blue">Blue <span id="final-score-blue">0</span></div>
+                <div class="score-box orange">Orange <span id="final-score-orange">0</span></div>
+            </div>
+        </div>
+
+        <div id="winner-screen" class="game-over-step hidden">
+            <img src="src/assets/game-over-page/Confetti-4.png" alt="Confetti" id="confetti-img" class="confetti-img">
+            <p id="winner-subtitle" class="winner-subtitle">The winner is</p>
+            <h2 id="winner-title" class="winner-title orange">ORANGE PLAYER</h2>
+            <img src="src/assets/game-over-page/chess_pawn.png" alt="Winner Icon" id="winner-icon" class="winner-icon">
+            <button id="btn-back-to-start" class="back-start-btn" type="button">Back to start</button>
         </div>
     </div>
-
-    <!-- Teil 2: Erscheint nach 3 Sekunden -->
-    <div id="winner-screen" class="game-over-step hidden">
-        <img src="src/assets/game-over-page/Confetti-4.png" alt="Confetti" id="confetti-img" class="confetti-img">
-        
-        <p id="winner-subtitle" class="winner-subtitle">The winner is</p>
-        <h2 id="winner-title" class="winner-title orange">ORANGE PLAYER</h2>
-        
-        <img src="src/assets/game-over-page/chess_pawn.png" alt="Winner Icon" id="winner-icon" class="winner-icon">
-        
-        <button id="btn-back-to-start" class="back-start-btn" type="button">Back to start</button>
-    </div>
-
-</div>
-
-
-
 
     <script type="module" src="/src/main.ts"></script>
 

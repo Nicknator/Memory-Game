@@ -1,0 +1,75 @@
+// --- Tablets & kleinere Laptops (unter 1024px) ---
+@media (max-width: 1024px) {
+  
+    #homescreen .hero-text .title {
+        font-size: 90px;
+    }
+
+    #settings-screen {
+        height: auto;
+        min-height: 100vh;
+        padding: 40px 20px;
+        box-sizing: border-box;
+    }
+
+    .settings-content {
+        flex-direction: column;
+        gap: 40px;
+
+        .preview-sidebar {
+            align-items: center;
+            margin-top: 0;
+        }
+    }
+}
+
+@media (max-width: 650px) {
+    // Homescreen
+    #homescreen .hero-text .subtitle {
+        font-size: 28px;
+    }
+
+    #homescreen .hero-text .title {
+        font-size: 56px;
+    }
+
+    .settings-content .preview-sidebar {
+        .visual_Theme_Set {
+            width: 100%;
+            max-width: 340px;
+            height: auto;
+        }
+
+        .selectionsBtnArea {
+            width: 100%;
+            height: auto;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px;
+
+            .selection-slash {
+                display: none;
+            }
+        }
+    }
+
+    .game-header {
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 20px;
+        margin-bottom: 24px;
+        padding: 0 12px;
+        box-sizing: border-box;
+    }
+
+    #game-bord {
+        padding: 0 12px;
+        gap: 10px;
+        box-sizing: border-box;
+    }
+
+    #game-over-screen .game-over-title {
+        font-size: 52px;
+    }
+}

@@ -1,10 +1,27 @@
-// --- General & Accent Colors ---
-$color-white: #FFFFFF;         // Settings background & white elements
-$color-text: white;            // Default light text color (e.g. homescreen)
-$color-text-dark: #2b2b2b;     // Dark text (settings selection & start button)
-$color-playBtn: #F0EA6E;       // Primary yellow accent (buttons, slashes, indicators)
-$color-play_btn_text: #303131; // Dark text on yellow buttons & headings
+// --- General Colors ---
+$color-white: #FFFFFF; // Settings background & white elements
+$color-text: white; // Default light text color (e.g. homescreen)
+$color-text-dark: #2b2b2b; // Dark text (settings selection & start button)
 
-// --- Screen Backgrounds ---
-$color-home: #303131;          // Homescreen & Code theme background
-$color-settingbtn: #F6F6F6;    // Light gray background for settings selection box
+// --- Homescreen & Buttons ---
+$color-home: #303131; // Homescreen & Code theme background
+$color-playBtn: #F0EA6E; // Yellow for play buttons & divider slashes
+$color-play_btn_text: #303131; // Dark text on yellow buttons & headings
+$color-settingbtn: #F6F6F6; // Light gray background for settings selection box
+
+
+// --- Shared Player Colors ---
+$color-player-blue: #3ca2f4;
+$color-player-orange: #e67e22;
+
+// --- Code Theme ---
+$color-code-mint: #4DD5BC;
+ 
+// --- Projects Theme ---
+$color-projects-blue: #2b5c8f;
+$color-projects-bg: #336b8e;
+$color-projects-red: #e85a4f;
+
+// --- Foods Theme ---
+$color-foods-brown: #A45212;
+$color-foods-orange: #F3832D;

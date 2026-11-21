@@ -1,30 +1,29 @@
 body.theme-code {
-    background-color: $color-home; // Die dunkelgraue Hintergrundfarbe aus deinem Bild!
-
+    background-color: $color-home;
     &,
     * {
-        --text-main-color: #ffffff;
-        --header-box-bg: rgba(134, 233, 214, 0.2); // Das Mintgrün für die Box!
+        --text-main-color: #{$color-white};
+        --header-box-bg: rgba(134, 233, 214, 0.2);
         --exit-btn-bg: rgba(134, 233, 214, 0.2);
-        --exit-btn-border: #4DD5BC;
-        --exit-btn-text: #ffffff;
+        --exit-btn-border: #{$color-code-mint};
+        --exit-btn-text: #{$color-white};
         --exit-btn-hover-bg: rgba(134, 233, 214, 0.35);
 
-        --player-blue-color: #3ca2f4;
-        --player-orange-color: #e67e22;
+        --player-blue-color: #{$color-player-blue};
+        --player-orange-color: #{$color-player-orange};
         --player-text-size: 0;
 
         --player-icon-clip: polygon(0 0, 75% 0, 100% 50%, 75% 100%, 0 100%);
-        --player-blue-bg: #3ca2f4;
-        --player-orange-bg: #e67e22;
+        --player-blue-bg: #{$color-player-blue};
+        --player-orange-bg: #{$color-player-orange};
         --pawn-blue-img: none;
         --pawn-orange-img: none;
     }
 }
 
 body.theme-projects {
-    background-color: #ffffff;
-    --text-main-color: #2b5c8f;
+    background-color: $color-white;
+    --text-main-color: #{$color-projects-blue};
     --header-box-bg: #f2f7fa;
     --exit-btn-bg: #d2e6f4;
     --exit-btn-border: transparent;
@@ -32,8 +31,8 @@ body.theme-projects {
     --exit-btn-hover-bg: #c2dcfa;
 
 
-    --player-blue-color: #2b5c8f;
-    --player-orange-color: #e67e22;
+    --player-blue-color: #{$color-projects-blue};
+    --player-orange-color: #{$color-player-orange};
     --player-text-size: 26px;
 
     --score-icon-clip: none;
@@ -49,9 +48,9 @@ body.theme-projects {
     --modal-btn-shadow: 0 4px 6px rgba(0, 0, 0, 0.06);
 
     --modal-btn-back-bg: #cde6f5;
-    --modal-btn-back-text: #2b5c8f;
+    --modal-btn-back-text: #{$color-projects-blue};
     --modal-btn-exit-bg: #f59387;
-    --modal-btn-exit-text: #ffffff;
+    --modal-btn-exit-text: $color-white;
     --modal-btn-exit-border: none;
 
     .game-header {
@@ -63,7 +62,7 @@ body.theme-projects {
     }
 
     .score-display {
-        background-color: #ffffff;
+        background-color: $color-white;
         padding: 4px 12px;
         border-radius: 6px;
         height: 32px;
@@ -84,7 +83,7 @@ body.theme-projects {
 
                 #score-blue-val {
                     font-size: 20px; // Minimal angepasst für die flachere Box
-                    color: #2b5c8f;
+                    color: #{$color-projects-blue};
                     font-weight: 700;
                     display: inline-block;
                 }
@@ -97,7 +96,7 @@ body.theme-projects {
 
                 #score-orange-val {
                     font-size: 20px;
-                    color: #e67e22;
+                    color: #{$color-player-orange};
                     font-weight: 700;
                     display: inline-block;
                 }
@@ -111,11 +110,11 @@ body.theme-projects {
         transition: color 0.2s ease;
 
         &:has(#current-player-display.blue) {
-            color: #2b5c8f;
+            color: #{$color-projects-blue};
         }
 
         &:has(#current-player-display.orange) {
-            color: #e67e22;
+            color: #{$color-player-orange};
         }
 
         #current-player-display {
@@ -140,7 +139,7 @@ body.theme-projects {
                     background-image: url('/src/assets/game-page/chess_pawn.png');
                     width: 26px;
                     height: 26px;
-                    background-color: #2b5c8f;
+                    background-color: #{$color-projects-blue};
                     border-radius: 4px;
                 }
             }
@@ -151,7 +150,7 @@ body.theme-projects {
                     background-image: url('/src/assets/game-page/chess_pawn.png');
                     width: 26px;
                     height: 26px;
-                    background-color: #e67e22;
+                    background-color: #{$color-player-orange};
                     border-radius: 4px;
                 }
             }
@@ -160,27 +159,27 @@ body.theme-projects {
 }
 
 body.theme-foods {
-    background-color: #ffffff;
-    --text-main-color: #A45212;
+    background-color: $color-white;
+    --text-main-color: #{$color-foods-brown};
     --player-blue-color: #097FC5;
-    --player-orange-color: #e67e22;
+    --player-orange-color: #{$color-player-orange};
     --player-text-size: 26px;
 
     --score-icon-clip: none;
     --player-icon-clip: none;
     --player-blue-bg: transparent;
     --player-orange-bg: transparent;
-    
+
     --modal-bg: #F7F7F7;
     --modal-radius: 24px;
-    --modal-title-color: #A45212;
+    --modal-title-color: #{$color-foods-brown};
     --modal-btn-radius: 12px;
     --modal-btn-shadow: none;
 
     --modal-btn-back-bg: #FFAB3E;
-    --modal-btn-back-text: #ffffff;
-    --modal-btn-exit-bg: #ffffff;
-    --modal-btn-exit-text: #F3832D;
+    --modal-btn-back-text: #{$color-white};
+    --modal-btn-exit-bg: $color-white;
+    --modal-btn-exit-text: #{$color-foods-orange};
     --modal-btn-exit-border: 2px solid #E38B1E;
 
     .exit-btn {
@@ -189,9 +188,9 @@ body.theme-foods {
         gap: 10px;
         padding: 16px 24px;
         background-color: #FFF9F2;
-        border: 2px solid #F3832D;
+        border: 2px solid #{$color-foods-orange};
         border-radius: 12px;
-        color: #F3832D;
+        color: #{$color-foods-orange};
         font-family: 'Almarai', sans-serif;
         font-size: 20px;
         font-weight: 700;
@@ -201,15 +200,15 @@ body.theme-foods {
         .btn-exit-icon {
             width: 22px;
             height: auto;
-            filter: drop-shadow(0px 0px 1px #F3832D);
+            filter: drop-shadow(0px 0px 1px #{$color-foods-orange});
         }
 
         &:hover {
-            background-color: #F3832D;
-            color: #ffffff;
+            background-color: #{$color-foods-orange};
+            color: $color-white;
 
             .btn-exit-icon {
-                filter: drop-shadow(0px 0px 0px #ffffff);
+                filter: drop-shadow(0px 0px 0px $color-white);
             }
         }
 
@@ -227,7 +226,7 @@ body.theme-foods {
     }
 
     .score-display {
-        background-color: #ffffff;
+        background-color: $color-white;
         padding: 6px 16px;
         border-radius: 8px;
         height: 44px;
@@ -257,7 +256,7 @@ body.theme-foods {
 
                 #score-blue-val {
                     font-size: 22px;
-                    color: #3ca2f4;
+                    color: #{$color-player-blue};
                     font-weight: 700;
                     display: inline-block;
                 }
@@ -270,7 +269,7 @@ body.theme-foods {
 
                 #score-orange-val {
                     font-size: 22px;
-                    color: #e67e22;
+                    color: #{$color-player-orange};
                     font-weight: 700;
                     display: inline-block;
                 }
@@ -279,16 +278,16 @@ body.theme-foods {
     }
 
     .current-player-status {
-        font-family: 'Klee One', sans-serif; 
-        font-size: 32px; 
+        font-family: 'Klee One', sans-serif;
+        font-size: 32px;
 
         &:has(#current-player-display.blue) {
-            color: #A45212;
+            color: #{$color-foods-brown};
         }
 
 
         &:has(#current-player-display.orange) {
-            color: #A45212;
+            color: #{$color-foods-brown};
         }
 
         #current-player-display {
@@ -311,7 +310,7 @@ body.theme-foods {
             &.indicator-blue {
                 &::before {
                     background-image: url('/src/assets/game-page/chess_pawn.png');
-                    background-color: #3ca2f4;
+                    background-color: #{$color-player-blue};
                     border-radius: 4px;
                 }
             }
@@ -320,14 +319,14 @@ body.theme-foods {
             &.indicator-orange {
                 &::before {
                     background-image: url('/src/assets/game-page/chess_pawn.png');
-                    background-color: #e67e22;
+                    background-color: #{$color-player-orange};
                     border-radius: 4px;
                 }
             }
         }
     }
 
-        #exit-modal.modal-overlay .modal-box {
+    #exit-modal.modal-overlay .modal-box {
         h2 {
             font-family: 'Klee One', cursive, sans-serif;
             font-weight: 600;
@@ -343,22 +342,22 @@ body.theme-foods {
     }
 
 
-    
+
 
 }
 
 body.theme-projects #game-over-screen {
-    background-color: #336b8e;
+    background-color: #{$color-projects-bg};
 
     .game-over-title {
-        color: #e85a4f;
+        color: #{$color-projects-red};
         text-shadow: none;
         text-transform: uppercase;
         font-size: 72px;
     }
 
     .final-score-box {
-        background-color: #ffffff;
+        background-color: $color-white;
 
         .score-box {
             &::before {
@@ -381,16 +380,22 @@ body.theme-projects #game-over-screen {
         }
     }
 
-    .confetti-img { display: none; }
+    .confetti-img {
+        display: none;
+    }
 
     .winner-title {
         text-transform: none;
-        &.draw { color: #e85a4f; text-transform: uppercase; }
+
+        &.draw {
+            color: #{$color-projects-red};
+            text-transform: uppercase;
+        }
     }
 
     .back-start-btn {
-        background-color: #ffffff;
-        color: #336b8e;
+        background-color: $color-white;
+        color: #{$color-projects-bg};
         border: none;
         padding: 10px 24px;
     }
@@ -398,7 +403,7 @@ body.theme-projects #game-over-screen {
 
 
 body.theme-foods #game-over-screen {
-    background-color: #e6832e; 
+    background-color: #e6832e;
     font-family: 'Klee One', cursive, sans-serif;
 
     &:has(#winner-screen:not(.hidden)) {
@@ -406,7 +411,7 @@ body.theme-foods #game-over-screen {
     }
 
     .game-over-title {
-        color: #ffffff;
+        color: $color-white;
         text-shadow: none;
         text-transform: uppercase;
         font-weight: 400;
@@ -414,24 +419,45 @@ body.theme-foods #game-over-screen {
     }
 
     .final-score-box {
-        background-color: #ffffff;
-        .score-box::before { clip-path: none; background-image: url('/src/assets/game-page/chess_pawn_blue.png'); }
-        .score-box.orange::before { background-image: url('/src/assets/game-page/chess_pawn_orange.png'); }
+        background-color: $color-white;
+
+        .score-box::before {
+            clip-path: none;
+            background-image: url('/src/assets/game-page/chess_pawn_blue.png');
+        }
+
+        .score-box.orange::before {
+            background-image: url('/src/assets/game-page/chess_pawn_orange.png');
+        }
     }
 
-    .confetti-img { display: none; }
+    .confetti-img {
+        display: none;
+    }
 
-    .winner-subtitle { color: #a45212; font-weight: 400; }
+    .winner-subtitle {
+        color: #{$color-foods-brown};
+        font-weight: 400;
+    }
 
     .winner-title {
         font-weight: 400;
         text-transform: none;
-        &.orange, &.draw { color: #e6832e; }
-        &.blue { color: #3ca2f4; }
-        &.draw { text-transform: uppercase; }
+
+        &.orange,
+        &.draw {
+            color: #{$color-player-orange};
+        }
+
+        &.blue {
+            color: #{$color-player-blue};
+        }
+
+        &.draw {
+            text-transform: uppercase;
+        }
     }
 
-    // Der beige Kasten hinter der Figur oder Waage
     .winner-icon {
         background-color: #f4eae1;
         padding: 24px;
@@ -439,8 +465,8 @@ body.theme-foods #game-over-screen {
     }
 
     .back-start-btn {
-        background-color: #f3832d;
-        color: #ffffff;
+        background-color: #{$color-foods-orange};
+        color: $color-white;
         border: none;
         font-family: 'Klee One', cursive, sans-serif;
         padding: 10px 24px;
