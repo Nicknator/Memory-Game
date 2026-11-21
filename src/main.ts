@@ -24,10 +24,10 @@ let flippedCards: HTMLButtonElement[] = [];
 let selectedSize: string = '16';
 
 const THEME_PREVIEWS: Record<string, string> = {
-    'Code vibes theme': 'src/assets/setting-page/1.themes/Theme Visual.png',
-    'Gaming theme': 'src/assets/setting-page/1.themes/Property 1=gameing.png',
-    'DA Projects theme': 'src/assets/setting-page/1.themes/Property 1=DA projects.png',
-    'Foods theme': 'src/assets/setting-page/1.themes/Property 1=foods.png',
+    'Code vibes theme': 'assets/setting-page/1.themes/Theme Visual.png',
+    'Gaming theme': 'assets/setting-page/1.themes/Property 1=gameing.png',
+    'DA Projects theme': 'assets/setting-page/1.themes/Property 1=DA projects.png',
+    'Foods theme': 'assets/setting-page/1.themes/Property 1=foods.png',
 };
 
 init();
@@ -89,12 +89,12 @@ function handleGameStart(): void {
  * @returns An object containing the sliced/shuffled array of cards and the backface asset path.
  */
 function prepareCards(theme: string): { cards: MemoryCard[]; backface: string } {
-    let backface = 'src/assets/game-page/card-backface1.png';
+    let backface = 'assets/game-page/card-backface1.png';
     let cards: MemoryCard[] = [];
     document.body.classList.remove('theme-code', 'theme-projects', 'theme-foods', 'theme-gaming');
     if (theme === 'Code vibes theme') { document.body.classList.add('theme-code'); cards = [...CODE_VIBES_CARDS]; }
-    else if (theme === 'DA Projects theme') { document.body.classList.add('theme-projects'); backface = 'src/assets/game-page/card-backface2.png'; cards = [...DA_PROJECTS_CARDS]; }
-    else if (theme === 'Foods theme') { document.body.classList.add('theme-foods'); backface = 'src/assets/game-page/card-backface3.png'; cards = [...FOOD_CARDS]; }
+    else if (theme === 'DA Projects theme') { document.body.classList.add('theme-projects'); backface = 'assets/game-page/card-backface2.png'; cards = [...DA_PROJECTS_CARDS]; }
+    else if (theme === 'Foods theme') { document.body.classList.add('theme-foods'); backface = 'assets/game-page/card-backface3.png'; cards = [...FOOD_CARDS]; }
     const limit = parseInt(selectedSize);
     cards = cards.slice(0, limit);
     shuffleArray(cards);
@@ -233,13 +233,13 @@ function checkGameOver(): void {
 function showWinnerResult(): void {
     const isProjects = document.body.classList.contains('theme-projects');
     if (scores.blue > scores.orange) {
-        const img = isProjects ? 'src/assets/game-over-page/Player-blue1.png' : 'src/assets/game-over-page/chess_pawn_blue-1.png';
+        const img = isProjects ? 'assets/game-over-page/Player-blue1.png' : 'assets/game-over-page/chess_pawn_blue-1.png';
         applyWinnerView('The winner is', 'BLUE PLAYER', 'blue', img, true);
     } else if (scores.orange > scores.blue) {
-        const img = isProjects ? 'src/assets/game-over-page/Player-orange2.png' : 'src/assets/game-over-page/chess_pawn_orange-2.png';
+        const img = isProjects ? 'assets/game-over-page/Player-orange2.png' : 'assets/game-over-page/chess_pawn_orange-2.png';
         applyWinnerView('The winner is', 'ORANGE PLAYER', 'orange', img, true);
     } else {
-        applyWinnerView("It's a", 'DRAW', 'draw', 'src/assets/game-over-page/Scale_Icon-3.png', false);
+        applyWinnerView("It's a", 'DRAW', 'draw', 'assets/game-over-page/Scale_Icon-3.png', false);
     }
 }
 
