@@ -1,10 +1,22 @@
+#game-screen {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px 16px;
+    box-sizing: border-box;
+    gap: 24px;
+}
+
 #game-bord {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
     width: 100%;
     max-width: 600px;
-    margin: 0 auto;
+    margin: auto;
     background-color: var(--board-bg, transparent);
 }
 
@@ -14,9 +26,8 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-bottom: 60px;
-    margin-top: 41px;
-
+    margin: 0 auto;
+    flex-shrink: 0;
 
     .score-display {
         display: flex;
@@ -34,7 +45,6 @@
             align-items: center;
             gap: 8px;
 
-            // Das Icon-Verhalten steuern wir jetzt flexibel:
             &::before {
                 content: var(--score-icon-content, "");
                 width: 24px;
@@ -138,6 +148,3 @@
         }
     }
 }
-
-
-

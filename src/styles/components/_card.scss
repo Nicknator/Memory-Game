@@ -1,32 +1,50 @@
 .card {
-    aspect-ratio: 1/1;
+    aspect-ratio: 1 / 1;
     background-color: transparent;
     border: none;
+    padding: 0;
     position: relative;
+    cursor: pointer;
+    perspective: 1000px;
 
     &__inner {
         position: relative;
         width: 100%;
         height: 100%;
         transform-style: preserve-3d;
-        transition: transform 300ms ease-in-out;
+        transition: transform 0.5s ease-in-out;
     }
 
     &__face {
         position: absolute;
         inset: 0;
-        backface-visibility: hidden;
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        box-sizing: border-box;
+        border-radius: 8px;
+        object-fit: contain;
+        padding: 12px;
+        background-color: var(--card-front-bg, transparent);
+        border: 2px solid transparent;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
         transform: rotateY(180deg);
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
         &--back {
+            padding: 0;
+            object-fit: cover;
+            background-color: transparent;
+            border: none;
             transform: rotateY(0deg);
         }
     }
 
     &.is-flipped .card__inner {
         transform: rotateY(180deg);
+    }
+
+    &.is-matched .card__face:not(.card__face--back) {
+        border-color: var(--card-match-border, transparent);
     }
 }

@@ -1,13 +1,15 @@
 body.theme-code {
     background-color: $color-home;
+
     &,
     * {
         --text-main-color: #{$color-white};
-        --header-box-bg: rgba(134, 233, 214, 0.2);
-        --exit-btn-bg: rgba(134, 233, 214, 0.2);
+        --header-box-bg: rgba(134, 233, 214, 0.28);
+        --board-bg: rgba(134, 233, 214, 0.12);
+        --exit-btn-bg: rgba(134, 233, 214, 0.25);
         --exit-btn-border: #{$color-code-mint};
         --exit-btn-text: #{$color-white};
-        --exit-btn-hover-bg: rgba(134, 233, 214, 0.35);
+        --exit-btn-hover-bg: rgba(134, 233, 214, 0.4);
 
         --player-blue-color: #{$color-player-blue};
         --player-orange-color: #{$color-player-orange};
@@ -19,17 +21,22 @@ body.theme-code {
         --pawn-blue-img: none;
         --pawn-orange-img: none;
     }
+
+    .card__face:not(.card__face--back) {
+        background-color: #E8F3F0;
+        border-radius: 8px;
+    }
 }
 
 body.theme-projects {
     background-color: $color-white;
     --text-main-color: #{$color-projects-blue};
-    --header-box-bg: #f2f7fa;
-    --exit-btn-bg: #d2e6f4;
-    --exit-btn-border: transparent;
-    --exit-btn-text: #28557b;
-    --exit-btn-hover-bg: #c2dcfa;
-
+    --header-box-bg: #d9ebf7;
+    --board-bg: #eef5fa;
+    --exit-btn-bg: #b9daf1;
+    --exit-btn-border: #8ebee0;
+    --exit-btn-text: #1e4668;
+    --exit-btn-hover-bg: #a3cceb;
 
     --player-blue-color: #{$color-projects-blue};
     --player-orange-color: #{$color-player-orange};
@@ -40,7 +47,6 @@ body.theme-projects {
     --player-blue-bg: transparent;
     --player-orange-bg: transparent;
 
-    // Dialog colors 
     --modal-bg: #f2f6fa;
     --modal-radius: 24px;
     --modal-title-color: #1e3c5a;
@@ -50,22 +56,29 @@ body.theme-projects {
     --modal-btn-back-bg: #cde6f5;
     --modal-btn-back-text: #{$color-projects-blue};
     --modal-btn-exit-bg: #f59387;
-    --modal-btn-exit-text: $color-white;
+    --modal-btn-exit-text: #{$color-white};
     --modal-btn-exit-border: none;
 
     .game-header {
         background-color: var(--header-box-bg);
-        height: 60px;
+        border: 1px solid #b5d5ec;
+        height: 64px;
         border-radius: 8px;
-        padding: 0 12px;
+        padding: 0 16px;
         box-sizing: border-box;
+
+        .exit-btn {
+            padding: 8px 18px;
+            font-size: 18px;
+        }
     }
 
     .score-display {
         background-color: $color-white;
+        border: 1px solid #c5dff0;
         padding: 4px 12px;
         border-radius: 6px;
-        height: 32px;
+        height: 36px;
         display: flex;
         align-items: center;
         box-sizing: border-box;
@@ -74,15 +87,27 @@ body.theme-projects {
             font-size: 0;
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
+
+            &::before {
+                content: "";
+                display: inline-block;
+                width: 22px;
+                height: 22px;
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-color: transparent;
+                clip-path: none;
+            }
 
             &.blue {
                 &::before {
-                    background-image: url('assets/game-page/chess_pawn_blue.png');
+                    background-image: url('/assets/game-page/chess_pawn_blue.png');
                 }
 
                 #score-blue-val {
-                    font-size: 20px; // Minimal angepasst für die flachere Box
+                    font-size: 20px;
                     color: #{$color-projects-blue};
                     font-weight: 700;
                     display: inline-block;
@@ -91,7 +116,7 @@ body.theme-projects {
 
             &.orange {
                 &::before {
-                    background-image: url('assets/game-page/chess_pawn_orange.png');
+                    background-image: url('/assets/game-page/chess_pawn_orange.png');
                 }
 
                 #score-orange-val {
@@ -106,7 +131,7 @@ body.theme-projects {
 
     .current-player-status {
         font-weight: 700;
-        font-size: 22px; // Auf die kompakte Leistenhöhe herunterskaliert
+        font-size: 22px;
         transition: color 0.2s ease;
 
         &:has(#current-player-display.blue) {
@@ -125,18 +150,19 @@ body.theme-projects {
             &::before {
                 content: "";
                 display: inline-block;
-                width: 26px; // Etwas kompakter für die flache Leiste
+                width: 26px;
                 height: 26px;
-                background-size: contain;
+                background-size: 18px 18px;
                 background-repeat: no-repeat;
                 background-position: center;
-                margin-right: 8px;
+                margin-left: 8px;
+                clip-path: none;
             }
 
             &.blue,
             &.indicator-blue {
                 &::before {
-                    background-image: url('assets/game-page/chess_pawn.png');
+                    background-image: url('/assets/game-page/chess_pawn.png');
                     width: 26px;
                     height: 26px;
                     background-color: #{$color-projects-blue};
@@ -147,7 +173,7 @@ body.theme-projects {
             &.orange,
             &.indicator-orange {
                 &::before {
-                    background-image: url('assets/game-page/chess_pawn.png');
+                    background-image: url('/assets/game-page/chess_pawn.png');
                     width: 26px;
                     height: 26px;
                     background-color: #{$color-player-orange};
@@ -156,11 +182,18 @@ body.theme-projects {
             }
         }
     }
+
+    .card__face:not(.card__face--back) {
+        background-color: #EAF2F4;
+        border-radius: 8px;
+    }
 }
 
 body.theme-foods {
     background-color: $color-white;
     --text-main-color: #{$color-foods-brown};
+    --header-box-bg: #ead9c7;
+    --board-bg: #f6efe7;
     --player-blue-color: #097FC5;
     --player-orange-color: #{$color-player-orange};
     --player-text-size: 26px;
@@ -178,7 +211,7 @@ body.theme-foods {
 
     --modal-btn-back-bg: #FFAB3E;
     --modal-btn-back-text: #{$color-white};
-    --modal-btn-exit-bg: $color-white;
+    --modal-btn-exit-bg: #{$color-white};
     --modal-btn-exit-text: #{$color-foods-orange};
     --modal-btn-exit-border: 2px solid #E38B1E;
 
@@ -186,13 +219,13 @@ body.theme-foods {
         display: flex;
         align-items: center;
         gap: 10px;
-        padding: 16px 24px;
+        padding: 8px 18px;
         background-color: #FFF9F2;
         border: 2px solid #{$color-foods-orange};
         border-radius: 12px;
         color: #{$color-foods-orange};
         font-family: 'Almarai', sans-serif;
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 700;
         cursor: pointer;
         transition: all 0.15s ease;
@@ -218,8 +251,9 @@ body.theme-foods {
     }
 
     .game-header {
-        background-color: #F0E5D9;
-        height: 60px;
+        background-color: var(--header-box-bg);
+        border: 1px solid #d8bfa6;
+        height: 64px;
         border-radius: 12px;
         padding: 0 16px;
         box-sizing: border-box;
@@ -227,6 +261,7 @@ body.theme-foods {
 
     .score-display {
         background-color: $color-white;
+        border: 1px solid #dec8b2;
         padding: 6px 16px;
         border-radius: 8px;
         height: 44px;
@@ -247,11 +282,14 @@ body.theme-foods {
                 height: 24px;
                 background-size: contain;
                 background-repeat: no-repeat;
+                background-position: center;
+                background-color: transparent;
+                clip-path: none;
             }
 
             &.blue {
                 &::before {
-                    background-image: url('assets/game-page/chess_pawn_blue.png');
+                    background-image: url('/assets/game-page/chess_pawn_blue.png');
                 }
 
                 #score-blue-val {
@@ -264,7 +302,7 @@ body.theme-foods {
 
             &.orange {
                 &::before {
-                    background-image: url('assets/game-page/chess_pawn_orange.png');
+                    background-image: url('/assets/game-page/chess_pawn_orange.png');
                 }
 
                 #score-orange-val {
@@ -275,17 +313,14 @@ body.theme-foods {
                 }
             }
         }
+
     }
 
     .current-player-status {
         font-family: 'Klee One', sans-serif;
         font-size: 32px;
 
-        &:has(#current-player-display.blue) {
-            color: #{$color-foods-brown};
-        }
-
-
+        &:has(#current-player-display.blue),
         &:has(#current-player-display.orange) {
             color: #{$color-foods-brown};
         }
@@ -300,16 +335,17 @@ body.theme-foods {
                 display: inline-block;
                 width: 28px;
                 height: 28px;
-                background-size: contain;
+                background-size: 18px 18px;
                 background-repeat: no-repeat;
                 background-position: center;
                 margin-right: 8px;
+                clip-path: none;
             }
 
             &.blue,
             &.indicator-blue {
                 &::before {
-                    background-image: url('assets/game-page/chess_pawn.png');
+                    background-image: url('/assets/game-page/chess_pawn.png');
                     background-color: #{$color-player-blue};
                     border-radius: 4px;
                 }
@@ -318,7 +354,7 @@ body.theme-foods {
             &.orange,
             &.indicator-orange {
                 &::before {
-                    background-image: url('assets/game-page/chess_pawn.png');
+                    background-image: url('/assets/game-page/chess_pawn.png');
                     background-color: #{$color-player-orange};
                     border-radius: 4px;
                 }
@@ -341,10 +377,13 @@ body.theme-foods {
         }
     }
 
-
-
-
+    .card__face:not(.card__face--back) {
+        background-color: #F4ECE4;
+        border-radius: 8px;
+    }
 }
+
+
 
 body.theme-projects #game-over-screen {
     background-color: #{$color-projects-bg};
@@ -371,11 +410,11 @@ body.theme-projects #game-over-screen {
             }
 
             &.blue::before {
-                background-image: url('../../assets/game-over-page/Player-blue1.png');
+                background-image: url('/assets/game-over-page/Player-blue1.png');
             }
 
             &.orange::before {
-                background-image: url('../../assets/game-over-page/Player-orange2.png');
+                background-image: url('/assets/game-over-page/Player-orange2.png');
             }
         }
     }
@@ -401,7 +440,6 @@ body.theme-projects #game-over-screen {
     }
 }
 
-
 body.theme-foods #game-over-screen {
     background-color: #e6832e;
     font-family: 'Klee One', cursive, sans-serif;
@@ -423,11 +461,12 @@ body.theme-foods #game-over-screen {
 
         .score-box::before {
             clip-path: none;
-            background-image: url('assets/game-page/chess_pawn_blue.png');
+            background-color: transparent;
+            background-image: url('/assets/game-page/chess_pawn_blue.png');
         }
 
         .score-box.orange::before {
-            background-image: url('assets/game-page/chess_pawn_orange.png');
+            background-image: url('/assets/game-page/chess_pawn_orange.png');
         }
     }
 
