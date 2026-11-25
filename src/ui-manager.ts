@@ -1,9 +1,19 @@
 import { MemoryCard, cardTemplate } from './template';
 
-/** Switches visibility between two screen elements by toggling CSS classes. */
-export function changeScreen(hideId: string, showId: string): void {
-  document.getElementById(hideId)?.classList.replace('screen-visible', 'screen-hidden');
-  document.getElementById(showId)?.classList.replace('screen-hidden', 'screen-visible');
+/** Renders a screen template into #app with a smooth CSS transition. */
+export function renderScreen(html: string, onRendered?: () => void): void {
+  const app = document.getElementById('app');
+  if (!app) return;
+
+  app.classList.add('is-transitioning');
+
+  setTimeout(() => {
+    app.innerHTML = html;
+    if (onRendered) onRendered();
+    requestAnimationFrame(() => {
+      app.classList.remove('is-transitioning');
+    });
+  }, 180);
 }
 
 /** Shows or hides a modal dialog based on the visibility flag. */

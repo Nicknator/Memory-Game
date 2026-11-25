@@ -78,7 +78,7 @@ body.theme-projects {
 
             &.blue {
                 &::before {
-                    background-image: url('/src/assets/game-page/chess_pawn_blue.png');
+                    background-image: url('assets/game-page/chess_pawn_blue.png');
                 }
 
                 #score-blue-val {
@@ -91,7 +91,7 @@ body.theme-projects {
 
             &.orange {
                 &::before {
-                    background-image: url('/src/assets/game-page/chess_pawn_orange.png');
+                    background-image: url('assets/game-page/chess_pawn_orange.png');
                 }
 
                 #score-orange-val {
@@ -136,7 +136,7 @@ body.theme-projects {
             &.blue,
             &.indicator-blue {
                 &::before {
-                    background-image: url('/src/assets/game-page/chess_pawn.png');
+                    background-image: url('assets/game-page/chess_pawn.png');
                     width: 26px;
                     height: 26px;
                     background-color: #{$color-projects-blue};
@@ -147,7 +147,7 @@ body.theme-projects {
             &.orange,
             &.indicator-orange {
                 &::before {
-                    background-image: url('/src/assets/game-page/chess_pawn.png');
+                    background-image: url('assets/game-page/chess_pawn.png');
                     width: 26px;
                     height: 26px;
                     background-color: #{$color-player-orange};
@@ -251,7 +251,7 @@ body.theme-foods {
 
             &.blue {
                 &::before {
-                    background-image: url('/src/assets/game-page/chess_pawn_blue.png');
+                    background-image: url('assets/game-page/chess_pawn_blue.png');
                 }
 
                 #score-blue-val {
@@ -264,7 +264,7 @@ body.theme-foods {
 
             &.orange {
                 &::before {
-                    background-image: url('/src/assets/game-page/chess_pawn_orange.png');
+                    background-image: url('assets/game-page/chess_pawn_orange.png');
                 }
 
                 #score-orange-val {
@@ -309,7 +309,7 @@ body.theme-foods {
             &.blue,
             &.indicator-blue {
                 &::before {
-                    background-image: url('/src/assets/game-page/chess_pawn.png');
+                    background-image: url('assets/game-page/chess_pawn.png');
                     background-color: #{$color-player-blue};
                     border-radius: 4px;
                 }
@@ -318,7 +318,7 @@ body.theme-foods {
             &.orange,
             &.indicator-orange {
                 &::before {
-                    background-image: url('/src/assets/game-page/chess_pawn.png');
+                    background-image: url('assets/game-page/chess_pawn.png');
                     background-color: #{$color-player-orange};
                     border-radius: 4px;
                 }
@@ -423,11 +423,11 @@ body.theme-foods #game-over-screen {
 
         .score-box::before {
             clip-path: none;
-            background-image: url('/src/assets/game-page/chess_pawn_blue.png');
+            background-image: url('assets/game-page/chess_pawn_blue.png');
         }
 
         .score-box.orange::before {
-            background-image: url('/src/assets/game-page/chess_pawn_orange.png');
+            background-image: url('assets/game-page/chess_pawn_orange.png');
         }
     }
 

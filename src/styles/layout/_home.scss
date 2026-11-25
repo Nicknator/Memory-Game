@@ -1,22 +1,28 @@
 #homescreen {
-    width: 100vw; 
-    height: 100vh; 
+    width: 100vw;
+    height: 100vh;
     display: flex;
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: center; 
-    gap: 60px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(32px, 5vh, 60px);
+    padding: 0 24px;
+    box-sizing: border-box;
     position: relative;
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: hidden;
 
-    .btn-play-icon2 {
+        .btn-play-icon2 {
         position: absolute;
-        height: 301px;
-        bottom: -50px;
-        top: 320px;
-        left: 0px;
+        width: 250px;
+        height: auto;
+        bottom: 0;
+        left: -25px;
+        pointer-events: none;
+        user-select: none;
+        z-index: 0;
     }
+
+
 }
 
 .hero-content {
@@ -24,9 +30,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
+    z-index: 1;
 }
 
-.hero-text {    
+.hero-text {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -34,20 +42,19 @@
     .subtitle {
         font-family: 'Almarai', sans-serif;
         font-weight: 400;
-        font-style: Regular;
-        font-size: 48px;
-        line-height: 100%;
-        margin: 0;
+        font-style: normal;
+        font-size: clamp(20px, 3vw, 48px);
+        line-height: 1;
+        margin: 0 0 12px 0;
         color: $color-text;
-        margin-top: -20px;
-        margin-bottom: 12px;   
     }
+
     .title {
         font-family: 'Red Rose', sans-serif;
         font-weight: 700;
-        font-style: Bold;
-        font-size: 140px;
-        line-height: 100%;
+        font-style: normal;
+        font-size: clamp(44px, 8.5vw, 140px);
+        line-height: 1;
         margin: 0;
         color: $color-text;
     }

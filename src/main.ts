@@ -1,9 +1,15 @@
 import './styles/main.scss';
 import { CODE_VIBES_CARDS, DA_PROJECTS_CARDS, FOOD_CARDS } from './cards-data';
-import { MemoryCard } from './template';
-import { changeScreen, toggleModal, renderGameBoard } from './ui-manager';
+import {
+    MemoryCard,
+    renderHomescreen,
+    renderSettingsScreen,
+    renderGameScreen,
+    renderGameOverScreen
+} from './template';
+import { renderScreen, toggleModal, renderGameBoard } from './ui-manager';
 
-// Typen & Interfaces 
+// Typen & Interfaces
 type GameTheme = 'code' | 'gaming' | 'projects' | 'foods';
 type PlayerColor = 'blue' | 'orange';
 type BoardSize = '16' | '24' | '36';
@@ -33,34 +39,52 @@ const THEME_PREVIEWS: Record<string, string> = {
 init();
 
 /**
- * Initializes the entire application state and sets up form tracking.
+ * Initializes the entire application by rendering the homescreen.
  */
 function init(): void {
-    const settingsForm = document.getElementById('settings-form') as HTMLFormElement | null;
-    updateLiveDisplays();
-    settingsForm?.addEventListener('change', updateLiveDisplays);
-    setupUIEventListeners();
-    themeSwitcher();
+    showHomescreen();
 }
 
 /**
- * Binds click events to global navigation buttons, modal toggles, and screen changers.
+ * Renders the homescreen into #app and binds the start navigation button.
  */
-function setupUIEventListeners(): void {
-    document.getElementById('btn-to-settings')?.addEventListener('click', () => changeScreen('homescreen', 'settings-screen'));
-    document.getElementById('btn-exit-game')?.addEventListener('click', () => toggleModal('exit-modal', true));
-    document.getElementById('btn-back-to-game')?.addEventListener('click', () => toggleModal('exit-modal', false));
-    document.getElementById('btn-confirm-exit')?.addEventListener('click', () => {
-        toggleModal('exit-modal', false); changeScreen('game-screen', 'settings-screen');
-        const showCards = document.getElementById('game-bord');
-        if (showCards) showCards.innerHTML = '';
+function showHomescreen(): void {
+    document.body.classList.remove('theme-code', 'theme-projects', 'theme-foods', 'theme-gaming');
+    renderScreen(renderHomescreen(), () => {
+        document.getElementById('btn-to-settings')?.addEventListener('click', () => {
+            showSettingsScreen();
+        });
     });
-    document.querySelectorAll('#btn-back-to-settings, #btn-back-to-start').forEach(btn => btn.addEventListener('click', () => {
-        changeScreen('game-over-screen', 'settings-screen');
-        document.body.classList.remove('theme-code', 'theme-projects', 'theme-foods');
-        resetGameState();
-    }));
-    document.getElementById('btnStartGame')?.addEventListener('click', () => handleGameStart());
+}
+
+/**
+ * Renders the settings screen into #app without preselection and binds form tracking.
+ */
+function showSettingsScreen(): void {
+    document.body.classList.remove('theme-code', 'theme-projects', 'theme-foods', 'theme-gaming');
+    renderScreen(renderSettingsScreen(), () => {
+        const settingsForm = document.getElementById('settings-form') as HTMLFormElement | null;
+        updateLiveDisplays();
+        updateStartButtonState();
+        settingsForm?.addEventListener('change', () => {
+            updateLiveDisplays();
+            updateStartButtonState();
+        });
+        themeSwitcher();
+        document.getElementById('btnStartGame')?.addEventListener('click', () => handleGameStart());
+    });
+}
+
+/**
+ * Enables or disables the start button depending on whether all settings are selected.
+ */
+function updateStartButtonState(): void {
+    const form = document.getElementById('settings-form') as HTMLFormElement | null;
+    const startBtn = document.getElementById('btnStartGame') as HTMLButtonElement | null;
+    if (!form || !startBtn) return;
+    const data = new FormData(form);
+    const isComplete = Boolean(data.get('theme-choice') && data.get('player-choice') && data.get('size-choice'));
+    startBtn.disabled = !isComplete;
 }
 
 /**
@@ -70,31 +94,54 @@ function handleGameStart(): void {
     const settingsForm = document.getElementById('settings-form') as HTMLFormElement | null;
     if (!settingsForm) return;
     const data = new FormData(settingsForm);
+    const selectedTheme = data.get('theme-choice') as string | null;
+    const selectedPlayer = data.get('player-choice') as string | null;
+    const chosenSize = data.get('size-choice') as string | null;
+    if (!selectedTheme || !selectedPlayer || !chosenSize) return;
+
     setupGameFromSettings(data);
-    const selectedTheme = data.get('theme-choice') as string;
-    document.body.classList.remove('theme-code', 'theme-projects');
-    if (selectedTheme === 'Code vibes theme') { document.body.classList.add('theme-code'); }
-    else if (selectedTheme === 'DA Projects theme') { document.body.classList.add('theme-projects'); }
-    else if (selectedTheme === 'Foods theme') { document.body.classList.add('theme-foods'); }
     const config = prepareCards(selectedTheme);
-    changeScreen('settings-screen', 'game-screen');
-    renderGameBoard(config.cards, config.backface, handleCardClick);
+
+    renderScreen(renderGameScreen(), () => {
+        updateHUD();
+        setupGameEventListeners();
+        renderGameBoard(config.cards, config.backface, handleCardClick);
+    });
+}
+
+/**
+ * Binds click events for the in-game exit modal and confirmation buttons.
+ */
+function setupGameEventListeners(): void {
+    document.getElementById('btn-exit-game')?.addEventListener('click', () => toggleModal('exit-modal', true));
+    document.getElementById('btn-back-to-game')?.addEventListener('click', () => toggleModal('exit-modal', false));
+    document.getElementById('btn-confirm-exit')?.addEventListener('click', () => {
+        toggleModal('exit-modal', false);
+        resetGameState();
+        showSettingsScreen();
+    });
 }
 
 /**
  * Selects the correct card dataset and backface image based on the selected theme,
  * then cuts the array to fit the chosen board size and shuffles it.
- * 
- * @param theme - The text identifier of the chosen theme from the form.
- * @returns An object containing the sliced/shuffled array of cards and the backface asset path.
  */
 function prepareCards(theme: string): { cards: MemoryCard[]; backface: string } {
     let backface = 'assets/game-page/card-backface1.png';
     let cards: MemoryCard[] = [];
     document.body.classList.remove('theme-code', 'theme-projects', 'theme-foods', 'theme-gaming');
-    if (theme === 'Code vibes theme') { document.body.classList.add('theme-code'); cards = [...CODE_VIBES_CARDS]; }
-    else if (theme === 'DA Projects theme') { document.body.classList.add('theme-projects'); backface = 'assets/game-page/card-backface2.png'; cards = [...DA_PROJECTS_CARDS]; }
-    else if (theme === 'Foods theme') { document.body.classList.add('theme-foods'); backface = 'assets/game-page/card-backface3.png'; cards = [...FOOD_CARDS]; }
+    if (theme === 'Code vibes theme') {
+        document.body.classList.add('theme-code');
+        cards = [...CODE_VIBES_CARDS];
+    } else if (theme === 'DA Projects theme') {
+        document.body.classList.add('theme-projects');
+        backface = 'assets/game-page/card-backface2.png';
+        cards = [...DA_PROJECTS_CARDS];
+    } else if (theme === 'Foods theme') {
+        document.body.classList.add('theme-foods');
+        backface = 'assets/game-page/card-backface3.png';
+        cards = [...FOOD_CARDS];
+    }
     const limit = parseInt(selectedSize);
     cards = cards.slice(0, limit);
     shuffleArray(cards);
@@ -113,9 +160,13 @@ function shuffleArray(array: MemoryCard[]): void {
 function handleCardClick(e: MouseEvent): void {
     updateHUD();
     const card = (e.target as HTMLElement).closest('.card') as HTMLButtonElement;
-    if (!card || lockBoard || card.classList.contains('is-flipped') || flippedCards.includes(card)) { return; }
+    if (!card || lockBoard || card.classList.contains('is-flipped') || flippedCards.includes(card)) {
+        return;
+    }
     flipCard(card);
-    if (flippedCards.length === 2) { checkCardsMatch(); }
+    if (flippedCards.length === 2) {
+        checkCardsMatch();
+    }
 }
 
 /** Visually flips a card over. */
@@ -130,13 +181,21 @@ function checkCardsMatch(): void {
     const card1 = flippedCards[0];
     const card2 = flippedCards[1];
     const isMatch = card1.dataset.image === card2.dataset.image;
-    if (isMatch) { scores[activePlayer] += 1; flippedCards = []; lockBoard = false; updateHUD(); checkGameOver(); }
-    else {
+    if (isMatch) {
+        scores[activePlayer] += 1;
+        flippedCards = [];
+        lockBoard = false;
+        updateHUD();
+        checkGameOver();
+    } else {
         setTimeout(() => {
             card1.classList.remove('is-flipped');
             card2.classList.remove('is-flipped');
-            flippedCards = []; activePlayer = activePlayer === 'blue' ? 'orange' : 'blue'; lockBoard = false; updateHUD();
-        }, 2000);
+            flippedCards = [];
+            activePlayer = activePlayer === 'blue' ? 'orange' : 'blue';
+            lockBoard = false;
+            updateHUD();
+        }, 1200);
     }
 }
 
@@ -145,34 +204,43 @@ function updateLiveDisplays(): void {
     const form = document.getElementById('settings-form') as HTMLFormElement | null;
     if (!form) return;
     const data = new FormData(form);
-    updateThemePreview(data.get('theme-choice') as string);
-    updatePlayerPreview(data.get('player-choice') as string);
-    updateSizePreview(data.get('size-choice') as string);
+    updateThemePreview(data.get('theme-choice') as string | null);
+    updatePlayerPreview(data.get('player-choice') as string | null);
+    updateSizePreview(data.get('size-choice') as string | null);
 }
 
 /** Updates the theme text and preview image. */
-function updateThemePreview(theme: string): void {
+function updateThemePreview(theme: string | null): void {
     const textEl = document.getElementById('theme-display');
     const imgBox = document.getElementById('theme-preview-container');
-    if (textEl && theme) textEl.textContent = theme.charAt(0).toUpperCase() + theme.slice(1);
-    if (imgBox && THEME_PREVIEWS[theme]) {
-        imgBox.innerHTML = `<img src="${THEME_PREVIEWS[theme]}" alt="${theme}" class="theme-preview-img">`;
+    if (textEl) {
+        textEl.textContent = theme ? theme.charAt(0).toUpperCase() + theme.slice(1) : 'Choose theme';
+    }
+    if (imgBox) {
+        if (theme && THEME_PREVIEWS[theme]) {
+            imgBox.innerHTML = `<img src="${THEME_PREVIEWS[theme]}" alt="${theme}" class="theme-preview-img">`;
+        } else {
+            imgBox.innerHTML = '';
+        }
     }
 }
 
 /** Updates the selected starting player text. */
-function updatePlayerPreview(player: string): void {
+function updatePlayerPreview(player: string | null): void {
     const playerEl = document.getElementById('player-color');
-    if (playerEl && player) {
-        playerEl.textContent = player.charAt(0).toUpperCase() + player.slice(1);
+    if (playerEl) {
+        playerEl.textContent = player ? player.charAt(0).toUpperCase() + player.slice(1) : 'Choose';
     }
 }
 
 /** Updates the selected board size text. */
 function updateSizePreview(size: string | null): void {
-    if (!size) return; // Schützt den Standardwert, falls nichts ausgewählt wurde!
-    selectedSize = size;
     const sizeEl = document.getElementById('size-display');
+    if (!size) {
+        if (sizeEl) sizeEl.textContent = 'Size';
+        return;
+    }
+    selectedSize = size;
     if (sizeEl) {
         sizeEl.textContent = `${selectedSize} Cards`;
     }
@@ -213,19 +281,35 @@ function resetGameState(): void {
     updateHUD();
 }
 
-/** Check whether all pairs have been found and end the game. */
+/** Check whether all pairs have been found and render the game-over screen. */
 function checkGameOver(): void {
     const totalPaare = parseInt(selectedSize) / 2;
     const foundPaare = scores.blue + scores.orange;
     if (foundPaare === totalPaare) {
-        const summary = document.getElementById('game-over-summary');
-        const winnerScreen = document.getElementById('winner-screen');
-        const finalBlue = document.getElementById('final-score-blue');
-        const finalOrange = document.getElementById('final-score-orange');
-        if (finalBlue) finalBlue.textContent = scores.blue.toString();
-        if (finalOrange) finalOrange.textContent = scores.orange.toString();
-        summary?.classList.remove('hidden'); winnerScreen?.classList.add('hidden'); changeScreen('game-screen', 'game-over-screen');
-        setTimeout(() => { summary?.classList.add('hidden'); winnerScreen?.classList.remove('hidden'); showWinnerResult(); }, 2000);
+        const finalBlueScore = scores.blue;
+        const finalOrangeScore = scores.orange;
+        renderScreen(renderGameOverScreen(), () => {
+            const summary = document.getElementById('game-over-summary');
+            const winnerScreen = document.getElementById('winner-screen');
+            const finalBlue = document.getElementById('final-score-blue');
+            const finalOrange = document.getElementById('final-score-orange');
+            if (finalBlue) finalBlue.textContent = finalBlueScore.toString();
+            if (finalOrange) finalOrange.textContent = finalOrangeScore.toString();
+
+            summary?.classList.remove('hidden');
+            winnerScreen?.classList.add('hidden');
+
+            document.getElementById('btn-back-to-start')?.addEventListener('click', () => {
+                resetGameState();
+                showSettingsScreen();
+            });
+
+            setTimeout(() => {
+                summary?.classList.add('hidden');
+                winnerScreen?.classList.remove('hidden');
+                showWinnerResult();
+            }, 2000);
+        });
     }
 }
 
@@ -266,8 +350,8 @@ function themeSwitcher(): void {
             if (input) {
                 input.checked = true;
                 updateLiveDisplays();
+                updateStartButtonState();
             }
         });
     });
 }
-

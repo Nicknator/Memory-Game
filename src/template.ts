@@ -15,3 +15,145 @@ export function cardTemplate(card: MemoryCard, backfaceImagePath: string): strin
     </button>
   `;
 }
+
+/** Renders the start homescreen section. */
+export function renderHomescreen(): string {
+  return `
+    <section id="homescreen" class="screen-visible">
+      <div class="background-icon"></div>
+      <img src="assets/stadia_controller2.png" alt="Controller2 Icon" class="btn-play-icon2">
+      <div class="hero-content">
+        <div class="hero-text">
+          <p class="subtitle">It's play time.</p>
+          <h1 class="title">Ready to play?</h1>
+        </div>
+      </div> 
+      <button id="btn-to-settings" class="btn-primary">
+        <img src="assets/stadia_controller.png" alt="Controller Icon" class="btn-play-icon">
+        <span class="icon-controller"></span> Play
+        <img src="assets/Arrow1.png" alt="Arrow Icon" class="btn-arrow-icon">
+      </button>
+    </section>
+  `;
+}
+
+/** Renders the game settings section without preselected options. */
+export function renderSettingsScreen(): string {
+  return `
+    <section id="settings-screen" class="screen-visible">
+      <div class="settings-container">
+        <div class="settings-header">
+          <h2 class="settings-title">Settings</h2>
+          <div class="header-line indicator-line"></div>
+        </div>
+        <div class="settings-content">
+          <form id="settings-form" class="settings-options">
+            <div class="game_Choose_Bord">
+              <div class="setting-group">
+                <div class="group-header">
+                  <img src="assets/setting-page/palette.png" alt="Palette Icon">
+                  <h3 class="themeTitelSet"><span> </span>Game themes</h3>
+                </div>
+                <div class="radio-options">
+                  <label><input type="radio" name="theme-choice" value="Code vibes theme"> Code vibes theme<div class="theme-line indicator-line"></div></label>
+                  <label><input type="radio" name="theme-choice" value="DA Projects theme"> DA Projects<div class="theme-line indicator-line"></div></label>
+                  <label><input type="radio" name="theme-choice" value="Foods theme"> Foods theme<div class="theme-line indicator-line"></div></label>
+                </div>
+              </div>
+              <div class="setting-group">
+                <div class="group-header">
+                  <img src="assets/setting-page/chess_pawn.png" alt="Chess Pawn Icon">
+                  <h3 class="themeTitelSet"><span> </span> Choose player</h3>
+                </div>
+                <div class="radio-options">
+                  <label><input type="radio" name="player-choice" value="Blue"> Blue</label>
+                  <label><input type="radio" name="player-choice" value="Orange"> Orange</label>
+                </div>
+              </div>
+              <div class="setting-group">
+                <div class="group-header">
+                  <img src="assets/setting-page/style.png" alt="Style Icon">
+                  <h3 class="themeTitelSet"><span> </span> Board size</h3>
+                </div>
+                <div class="radio-options">
+                  <label><input type="radio" name="size-choice" value="16"> 16 cards</label>
+                  <label><input type="radio" name="size-choice" value="24"> 24 cards</label>
+                  <label><input type="radio" name="size-choice" value="36"> 36 cards</label>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="preview-sidebar">
+            <div id="theme-preview-container" class="visual_Theme_Set"></div>
+            <div class="selectionsBtnArea">
+              <div class="selection-text-box"><p class="theme-info-text"><span id="theme-display">Choose theme</span></p></div>
+              <div class="selection-slash"></div>
+              <p class="selection-text-box"><span id="player-color">Choose</span> Player</p>
+              <div class="selection-slash"></div>
+              <p class="selection-text-box">Board-<span id="size-display">Size</span></p>
+              <button id="btnStartGame" disabled>
+                <img src="assets/setting-page/smart_display1.png" alt="Play Icon" class="btn-play-icon">
+                start
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+/** Renders the active gameplay section including HUD and exit modal. */
+export function renderGameScreen(): string {
+  return `
+    <section id="game-screen" class="screen-visible">
+      <div class="game-header">
+        <div class="score-display">
+          <div class="score-box blue">Blue <span id="score-blue-val">0</span></div>
+          <div class="score-box orange">Orange <span id="score-orange-val">0</span></div>
+        </div>
+        <div class="current-player-status">
+          Current player: <span id="current-player-display" class="indicator-blue">0</span>
+        </div>
+        <button id="btn-exit-game" class="exit-btn">
+          <img src="assets/game-page/move_item.png" alt="Exit" class="btn-exit-icon">
+          Exit game
+        </button>
+        <div id="exit-modal" class="modal-overlay hidden">
+          <div class="modal-box">
+            <h2>Are you sure you want to quit the game?</h2>
+            <div class="modal-buttons">
+              <button id="btn-back-to-game" class="btn-filled">Back to game</button>
+              <button id="btn-confirm-exit" class="btn-outline">Exit game</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="game-bord" class="game-bord"></div>
+    </section>
+  `;
+}
+
+/** Renders the two-step game over and winner announcement screen. */
+export function renderGameOverScreen(): string {
+  return `
+    <div id="game-over-screen" class="screen-visible">
+      <div id="game-over-summary" class="game-over-step">
+        <h1 class="game-over-title">Game over</h1>
+        <p class="final-score-label">Final score</p>
+        <div class="final-score-box">
+          <div class="score-box blue">Blue <span id="final-score-blue">0</span></div>
+          <div class="score-box orange">Orange <span id="final-score-orange">0</span></div>
+        </div>
+      </div>
+      <div id="winner-screen" class="game-over-step hidden">
+        <img src="assets/game-over-page/Confetti-4.png" alt="Confetti" id="confetti-img" class="confetti-img">
+        <p id="winner-subtitle" class="winner-subtitle">The winner is</p>
+        <h2 id="winner-title" class="winner-title orange">ORANGE PLAYER</h2>
+        <img src="assets/game-over-page/chess_pawn_blue-1.png" alt="Winner Icon" id="winner-icon" class="winner-icon">
+        <button id="btn-back-to-start" class="back-start-btn" type="button">Back to start</button>
+      </div>
+    </div>
+  `;
+}
+
