@@ -64,11 +64,9 @@ function showSettingsScreen(): void {
     document.body.classList.remove('theme-code', 'theme-projects', 'theme-foods', 'theme-gaming');
     renderScreen(renderSettingsScreen(), () => {
         const settingsForm = document.getElementById('settings-form') as HTMLFormElement | null;
-        updateLiveDisplays();
-        updateStartButtonState();
+        updateLiveDisplays(); updateStartButtonState();
         settingsForm?.addEventListener('change', () => {
-            updateLiveDisplays();
-            updateStartButtonState();
+            updateLiveDisplays(); updateStartButtonState();
         });
         themeSwitcher();
         document.getElementById('btnStartGame')?.addEventListener('click', () => handleGameStart());
@@ -98,13 +96,9 @@ function handleGameStart(): void {
     const selectedPlayer = data.get('player-choice') as string | null;
     const chosenSize = data.get('size-choice') as string | null;
     if (!selectedTheme || !selectedPlayer || !chosenSize) return;
-
-    setupGameFromSettings(data);
-    const config = prepareCards(selectedTheme);
-
+    setupGameFromSettings(data); const config = prepareCards(selectedTheme);
     renderScreen(renderGameScreen(), () => {
-        updateHUD();
-        setupGameEventListeners();
+        updateHUD(); setupGameEventListeners();
         renderGameBoard(config.cards, config.backface, handleCardClick);
     });
 }
@@ -130,18 +124,9 @@ function prepareCards(theme: string): { cards: MemoryCard[]; backface: string } 
     let backface = 'assets/game-page/card-backface1.png';
     let cards: MemoryCard[] = [];
     document.body.classList.remove('theme-code', 'theme-projects', 'theme-foods', 'theme-gaming');
-    if (theme === 'Code vibes theme') {
-        document.body.classList.add('theme-code');
-        cards = [...CODE_VIBES_CARDS];
-    } else if (theme === 'DA Projects theme') {
-        document.body.classList.add('theme-projects');
-        backface = 'assets/game-page/card-backface2.png';
-        cards = [...DA_PROJECTS_CARDS];
-    } else if (theme === 'Foods theme') {
-        document.body.classList.add('theme-foods');
-        backface = 'assets/game-page/card-backface3.png';
-        cards = [...FOOD_CARDS];
-    }
+    if (theme === 'Code vibes theme') { document.body.classList.add('theme-code'); cards = [...CODE_VIBES_CARDS]; }
+    else if (theme === 'DA Projects theme') { document.body.classList.add('theme-projects'); backface = 'assets/game-page/card-backface2.png'; cards = [...DA_PROJECTS_CARDS]; }
+    else if (theme === 'Foods theme') { document.body.classList.add('theme-foods'); backface = 'assets/game-page/card-backface3.png'; cards = [...FOOD_CARDS]; }
     const limit = parseInt(selectedSize);
     cards = cards.slice(0, limit);
     shuffleArray(cards);
@@ -164,9 +149,7 @@ function handleCardClick(e: MouseEvent): void {
         return;
     }
     flipCard(card);
-    if (flippedCards.length === 2) {
-        checkCardsMatch();
-    }
+    if (flippedCards.length === 2) { checkCardsMatch(); }
 }
 
 /** Visually flips a card over. */
@@ -178,23 +161,15 @@ function flipCard(card: HTMLButtonElement): void {
 /** Check whether two face-up cards are identical. */
 function checkCardsMatch(): void {
     lockBoard = true;
-    const card1 = flippedCards[0];
-    const card2 = flippedCards[1];
+    const card1 = flippedCards[0]; const card2 = flippedCards[1];
     const isMatch = card1.dataset.image === card2.dataset.image;
-    if (isMatch) {
-        scores[activePlayer] += 1;
-        flippedCards = [];
-        lockBoard = false;
-        updateHUD();
-        checkGameOver();
-    } else {
+    if (isMatch) { scores[activePlayer] += 1; flippedCards = []; lockBoard = false; updateHUD(); checkGameOver(); }
+    else {
         setTimeout(() => {
-            card1.classList.remove('is-flipped');
-            card2.classList.remove('is-flipped');
+            card1.classList.remove('is-flipped'); card2.classList.remove('is-flipped');
             flippedCards = [];
             activePlayer = activePlayer === 'blue' ? 'orange' : 'blue';
-            lockBoard = false;
-            updateHUD();
+            lockBoard = false; updateHUD();
         }, 1200);
     }
 }
@@ -281,37 +256,39 @@ function resetGameState(): void {
     updateHUD();
 }
 
-/** Check whether all pairs have been found and render the game-over screen. */
+/** Check whether all pairs have been found and trigger the game-over flow. */
 function checkGameOver(): void {
-    const totalPaare = parseInt(selectedSize) / 2;
-    const foundPaare = scores.blue + scores.orange;
-    if (foundPaare === totalPaare) {
-        const finalBlueScore = scores.blue;
-        const finalOrangeScore = scores.orange;
-        renderScreen(renderGameOverScreen(), () => {
-            const summary = document.getElementById('game-over-summary');
-            const winnerScreen = document.getElementById('winner-screen');
-            const finalBlue = document.getElementById('final-score-blue');
-            const finalOrange = document.getElementById('final-score-orange');
-            if (finalBlue) finalBlue.textContent = finalBlueScore.toString();
-            if (finalOrange) finalOrange.textContent = finalOrangeScore.toString();
-
-            summary?.classList.remove('hidden');
-            winnerScreen?.classList.add('hidden');
-
-            document.getElementById('btn-back-to-start')?.addEventListener('click', () => {
-                resetGameState();
-                showSettingsScreen();
-            });
-
-            setTimeout(() => {
-                summary?.classList.add('hidden');
-                winnerScreen?.classList.remove('hidden');
-                showWinnerResult();
-            }, 2000);
-        });
-    }
+    const totalPairs = parseInt(selectedSize) / 2;
+    if (scores.blue + scores.orange !== totalPairs) return;
+    const finalScores = { blue: scores.blue, orange: scores.orange };
+    renderScreen(renderGameOverScreen(), () => initGameOverView(finalScores));
 }
+
+/** Sets up scores, button listeners, and the transition to the winner screen. */
+function initGameOverView(finalScores: { blue: number; orange: number }): void {
+    setFinalScores(finalScores);
+    document.getElementById('btn-back-to-start')?.addEventListener('click', () => {
+        resetGameState();
+        showSettingsScreen();
+    });
+    setTimeout(() => switchToWinnerScreen(), 2000);
+}
+
+/** Writes the final scores into the summary screen. */
+function setFinalScores(finalScores: { blue: number; orange: number }): void {
+    const finalBlue = document.getElementById('final-score-blue');
+    const finalOrange = document.getElementById('final-score-orange');
+    if (finalBlue) finalBlue.textContent = finalScores.blue.toString();
+    if (finalOrange) finalOrange.textContent = finalScores.orange.toString();
+}
+
+/** Transitions from the summary step to the winner announcement. */
+function switchToWinnerScreen(): void {
+    document.getElementById('game-over-summary')?.classList.add('hidden');
+    document.getElementById('winner-screen')?.classList.remove('hidden');
+    showWinnerResult();
+}
+
 
 /** Determines the match outcome and triggers the winner display. */
 function showWinnerResult(): void {
@@ -349,8 +326,7 @@ function themeSwitcher(): void {
             const input = label.querySelector('input') as HTMLInputElement;
             if (input) {
                 input.checked = true;
-                updateLiveDisplays();
-                updateStartButtonState();
+                updateLiveDisplays(); updateStartButtonState();
             }
         });
     });
