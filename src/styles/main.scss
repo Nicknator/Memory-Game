@@ -10,3 +10,15 @@
 @import 'layout/game-over.scss';
 @import 'themes/_themes.scss';
 @import 'base/responsive';
+
+
+#app {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+
+    &.is-transitioning {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+}
